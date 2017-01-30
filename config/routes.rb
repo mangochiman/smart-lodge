@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_room_type_menu  '/new_room_type_menu',  :controller => 'admin', :action => 'new_room_type_menu'
   map.edit_room_types_menu  '/edit_room_types_menu',  :controller => 'admin', :action => 'edit_room_types_menu'
-  map.view_room_types_menu  '/view_room_types_menu',  :controller => 'admin', :action => 'view_drug_menu'
+  map.view_room_types_menu  '/view_room_types_menu',  :controller => 'admin', :action => 'view_room_types_menu'
   map.remove_room_types_menu  '/remove_room_types_menu',  :controller => 'admin', :action => 'view_room_types_menu'
 
   map.new_rooms_menu  '/new_rooms_menu',  :controller => 'admin', :action => 'new_rooms_menu'
