@@ -7,12 +7,29 @@ ActionController::Routing::Routes.draw do |map|
   map.authenticate  '/authenticate',  :controller => 'users', :action => 'authenticate'
   map.home  '/pages',  :controller => 'pages', :action => 'home'
 
-  map.new_drug_menu  '/new_drug_menu',  :controller => 'pages', :action => 'new_drug_menu'
-  map.edit_drug_menu  '/edit_drug_menu',  :controller => 'pages', :action => 'edit_drug_menu'
-  map.view_drug_menu  '/view_drug_menu',  :controller => 'pages', :action => 'view_drug_menu'
-  map.delete_drug_menu  '/delete_drug_menu',  :controller => 'pages', :action => 'delete_drug_menu'
+  map.new_room_type_menu  '/new_room_type_menu',  :controller => 'admin', :action => 'new_room_type_menu'
+  map.edit_room_types_menu  '/edit_room_types_menu',  :controller => 'admin', :action => 'edit_room_types_menu'
+  map.view_room_types_menu  '/view_room_types_menu',  :controller => 'admin', :action => 'view_drug_menu'
+  map.remove_room_types_menu  '/remove_room_types_menu',  :controller => 'admin', :action => 'view_room_types_menu'
+
+  map.new_rooms_menu  '/new_rooms_menu',  :controller => 'admin', :action => 'new_rooms_menu'
+  map.edit_rooms_menu  '/edit_rooms_menu',  :controller => 'admin', :action => 'edit_rooms_menu'
+  map.view_rooms_menu  '/view_rooms_menu',  :controller => 'admin', :action => 'view_rooms_menu'
+  map.remove_rooms_menu  '/remove_rooms_menu',  :controller => 'admin', :action => 'remove_rooms_menu'
+
+  map.new_rates_menu  '/new_rates_menu',  :controller => 'admin', :action => 'new_rates_menu'
+  map.edit_rates_menu  '/edit_rates_menu',  :controller => 'admin', :action => 'edit_rates_menu'
+  map.view_rates_menu  '/view_rates_menu',  :controller => 'admin', :action => 'view_rates_menu'
+  map.remove_rates_menu  '/remove_rates_menu',  :controller => 'admin', :action => 'remove_rates_menu'
+
+
+  map.new_rooms_menu  '/new_users_menu',  :controller => 'admin', :action => 'new_users_menu'
+  map.edit_rooms_menu  '/edit_users_menu',  :controller => 'admin', :action => 'edit_users_menu'
+  map.view_rooms_menu  '/view_users_menu',  :controller => 'admin', :action => 'view_users_menu'
+  map.remove_rooms_menu  '/remove_users_menu',  :controller => 'admin', :action => 'remove_users_menu'
+
   
-  map.new_drug_menu  '/dashboard',  :controller => 'pages', :action => 'dashboard'
+  map.admin_dashboard  '/admin_dashboard',  :controller => 'admin', :action => 'dashboard'
   map.settings_menu  '/settings_menu',  :controller => 'pages', :action => 'settings_menu'
   # The priority is based upon order of creation: first created -> highest priority.
 
