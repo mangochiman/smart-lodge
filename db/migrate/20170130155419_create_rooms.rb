@@ -3,7 +3,7 @@ class CreateRooms < ActiveRecord::Migration
     create_table :rooms, :primary_key => :room_id do |t|
       t.integer :number
       t.string :name
-      t.string :bed_type
+      t.integer :room_type_id
       t.integer :creator
       t.integer :voided
       t.timestamps
