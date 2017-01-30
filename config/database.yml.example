@@ -1,0 +1,25 @@
+development:
+  adapter: mysql
+  username: user
+  database: smart_lodge
+  password: password
+  host: localhost
+  pool: 500
+
+production:
+  adapter: mysql
+  username: user
+  database: smart_lodge
+  password: password
+  host: localhost
+  pool: 500
+
+test:
+  adapter: mysql
+  username: user
+  database: probooks
+  password: password
+  host: localhost
+  pool: 500
+
+
