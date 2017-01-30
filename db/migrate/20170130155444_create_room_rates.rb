@@ -1,7 +1,12 @@
 class CreateRoomRates < ActiveRecord::Migration
   def self.up
-    create_table :room_rates do |t|
-
+    create_table :room_rates, :primary_key => :room_rate_id do |t|
+      t.integer :room_id
+      t.integer :rate
+      t.date :start_date
+      t.date :end_date
+      t.integer :creator
+      t.integer :voided
       t.timestamps
     end
   end
