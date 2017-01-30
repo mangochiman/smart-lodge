@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   skip_before_filter :verify_authenticity_token
   # Scrub sensitive parameters from your log
   before_filter :authenticate_user
-  before_filter :deny_access, :except => [:access_denied]  #disabling the application
   filter_parameter_logging :password
 
   def authenticate_user

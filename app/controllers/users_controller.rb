@@ -17,9 +17,6 @@ class UsersController < ApplicationController
 
     if logged_in_user
       session[:user] = user
-      ip_address = request.remote_ip
-      Tracker.track_user(user.user_id, ip_address)
-      redirect_to("/dashboard") and return if user.role == 'user'
       redirect_to("/") and return
     else
       flash[:error] = "Invalid username or password"
@@ -202,10 +199,6 @@ class UsersController < ApplicationController
       flash[:error] = user.errors.full_messages.join('<br />')
       redirect_to("/new_users_menu") and return
     end
-  end
-
-  def access_denied
-    render :layout => false
   end
 
 end

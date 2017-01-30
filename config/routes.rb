@@ -1,4 +1,19 @@
 ActionController::Routing::Routes.draw do |map|
+  map.login  '/login',  :controller => 'users', :action => 'login'
+  map.logout  '/logout',  :controller => 'users', :action => 'logout'
+  map.new_user  '/new_user',  :controller => 'users', :action => 'new_user'
+  map.view_users  '/view_users',  :controller => 'users', :action => 'view_users'
+  map.void_users  '/void_users',  :controller => 'users', :action => 'void_users'
+  map.authenticate  '/authenticate',  :controller => 'users', :action => 'authenticate'
+  map.home  '/pages',  :controller => 'pages', :action => 'home'
+
+  map.new_drug_menu  '/new_drug_menu',  :controller => 'pages', :action => 'new_drug_menu'
+  map.edit_drug_menu  '/edit_drug_menu',  :controller => 'pages', :action => 'edit_drug_menu'
+  map.view_drug_menu  '/view_drug_menu',  :controller => 'pages', :action => 'view_drug_menu'
+  map.delete_drug_menu  '/delete_drug_menu',  :controller => 'pages', :action => 'delete_drug_menu'
+  
+  map.new_drug_menu  '/dashboard',  :controller => 'pages', :action => 'dashboard'
+  map.settings_menu  '/settings_menu',  :controller => 'pages', :action => 'settings_menu'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -17,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments
@@ -31,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
+  map.root :controller => "pages", :action => "home"
 
   # See how all your routes lay out with "rake routes"
 
