@@ -15,7 +15,9 @@ class AdminController < ApplicationController
   end
 
   def edit_room_type
-
+    @page_title = "Editing Room Types"
+    @room_types = RoomType.all
+    @room_type = RoomType.find(params[:room_type_id])
   end
 
   def create_room_type
@@ -30,7 +32,21 @@ class AdminController < ApplicationController
       redirect_to("/new_room_type_menu")
     end
   end
-  
+
+  def update_room_type
+    room_type = RoomType.find(params[:room_type_id])
+    room_type.room_type = params[:room_type]
+    room_type.max_capacity = params[:max_capacity]
+
+    if room_type.save
+      flash[:notice] = "You have successfully updated room type"
+      redirect_to("/edit_room_type/#{params[:room_type_id]}") and return
+    else
+      flash[:error] = faculty.errors.full_messages.join('<br />')
+      redirect_to("/edit_room_type/#{params[:room_type_id]}") and return
+    end
+  end
+
   def view_room_types_menu
     @page_title = "View Room Types"
   end
