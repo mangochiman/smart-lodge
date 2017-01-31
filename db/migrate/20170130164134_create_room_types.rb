@@ -2,6 +2,7 @@ class CreateRoomTypes < ActiveRecord::Migration
   def self.up
     create_table :room_types, :primary_key => :room_type_id do |t|
       t.integer :max_capacity
+      t.string :room_type
       t.string :description
       t.timestamps
     end

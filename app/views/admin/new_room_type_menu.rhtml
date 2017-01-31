@@ -1,0 +1,52 @@
+<div class="row" style="padding-left: 10px;">
+  <div class="col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b>Room types (<b><%= @room_types.count %></b>)</b>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <%  @room_types.each do |room_type| %>
+            <a class="list-group-item" href="/edit_room_type/<%= room_type.room_type_id %>">
+              <i></i> <%= room_type.room_type %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b>Add Room Type</b>
+      </div>
+      <div class="panel-body">
+        <div id="div-1" class="accordion-body collapse in body">
+          <form class="form-horizontal" action="/admin/create_room_type" method="POST">
+
+            <div class="form-group">
+              <label for="room_type" class="control-label col-lg-4">Room Type</label>
+              <div class="col-lg-8">
+                <input required type="text" name="room_type" id="room_type" placeholder="Room Type" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="max_capacity" class="control-label col-lg-4">Max Capacity</label>
+              <div class="col-lg-8">
+                <input required type="text" name="max_capacity" id="max_capacity" placeholder="Max Capacity" class="form-control" />
+              </div>
+            </div>
+
+            <div style="text-align:center;" class="form-actions no-margin-bottom">
+              <input type="submit" class="btn btn-success" value="Submit"/>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

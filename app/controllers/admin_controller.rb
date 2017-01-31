@@ -7,12 +7,30 @@ class AdminController < ApplicationController
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_room_type_menu
     @page_title = "New Room Type"
+    @room_types = RoomType.all
   end
 
   def edit_room_types_menu
     @page_title = "Edit Room Types"
   end
 
+  def edit_room_type
+
+  end
+
+  def create_room_type
+    room_type = RoomType.new
+    room_type.room_type = params[:room_type]
+    room_type.max_capacity = params[:max_capacity]
+    if room_type.save
+      flash[:notice] = "You have successfully added a new room type"
+      redirect_to("/new_room_type_menu")
+    else
+      flash[:error] = room_type.errors.full_messages.join('<br />')
+      redirect_to("/new_room_type_menu")
+    end
+  end
+  
   def view_room_types_menu
     @page_title = "View Room Types"
   end
