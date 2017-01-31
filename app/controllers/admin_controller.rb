@@ -49,6 +49,7 @@ class AdminController < ApplicationController
 
   def view_room_types_menu
     @page_title = "View Room Types"
+    @room_types = RoomType.all
   end
 
   def remove_room_types_menu

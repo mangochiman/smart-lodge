@@ -1,0 +1,32 @@
+<div class="body in" id="sortableTable" style="height: auto; padding-left: 10px; width: 99%;">
+  <table class="table table-bordered sortableTable responsive-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Room Type</th>
+        <th>Max Capacity</th>
+        <th>Date Created</th>
+        <th>&nbsp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% count = 0 %>
+      <%  @room_types.each do |room_type|%>
+        <% count = count + 1 %>
+        <tr>
+          <td><%= count %></td>
+          <td><%= room_type.room_type %></td>
+          <td><%= room_type.max_capacity %></td>
+          <td><%= room_type.created_at.to_date.strftime("%d-%b-%Y") rescue room_type.created_at %></td>
+          <td><button onclick="editRoomType('<%= room_type.room_type_id %>')" class="btn btn-block"><i class="icon-pencil"></i> Edit</button></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function editRoomType(room_type_id){
+    window.location = '/edit_room_type/' + room_type_id;
+  }
+</script>
