@@ -9,7 +9,7 @@ class CreatePeople < ActiveRecord::Migration
       t.string :phone_number
       t.string :address
       t.integer :creator
-      t.integer :voided
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

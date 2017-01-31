@@ -6,7 +6,7 @@ class CreateRoomRates < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
       t.integer :creator
-      t.integer :voided
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

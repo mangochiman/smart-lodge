@@ -6,7 +6,7 @@ class CreateBookings < ActiveRecord::Migration
       t.date :end_date
       t.string :status
       t.integer :creator
-      t.integer :voided
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

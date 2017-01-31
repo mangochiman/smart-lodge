@@ -5,7 +5,7 @@ class CreateRooms < ActiveRecord::Migration
       t.string :name
       t.integer :room_type_id
       t.integer :creator
-      t.integer :voided
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

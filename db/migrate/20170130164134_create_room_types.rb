@@ -4,6 +4,7 @@ class CreateRoomTypes < ActiveRecord::Migration
       t.integer :max_capacity
       t.string :room_type
       t.string :description
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

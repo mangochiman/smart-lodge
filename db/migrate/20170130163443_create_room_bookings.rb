@@ -4,7 +4,7 @@ class CreateRoomBookings < ActiveRecord::Migration
       t.integer :booking_id
       t.integer :room_id
       t.integer :creator
-      t.integer :voided
+      t.integer :voided, :default => 0
       t.timestamps
     end
   end

@@ -54,6 +54,24 @@ class AdminController < ApplicationController
 
   def remove_room_types_menu
     @page_title = "Remove Room Types"
+    @room_types = RoomType.all
+  end
+
+  def remove_room_types
+    room_type_ids = params[:room_type_ids].split(',')
+    if room_type_ids.blank?
+      flash[:error] = "Select item to delete"
+      redirect_to("/remove_room_types_menu") and return
+    end
+
+    room_type_ids.each do |room_type_id|
+      room_type = RoomType.find(room_type_id)
+      room_type.voided = 1
+      room_type.save
+    end
+
+    flash[:notice] = "You have succesfully deleted room type"
+    redirect_to("/remove_room_types_menu") and return
   end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_rooms_menu
