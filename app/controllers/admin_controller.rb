@@ -224,8 +224,25 @@ class AdminController < ApplicationController
 
   def remove_rates_menu
     @page_title = "Remove Rates"
+    @room_rates = RoomRate.find(:all)
   end
-  
+
+  def remove_rates
+    room_rate_ids = params[:room_rate_ids].split(',')
+    if room_rate_ids.blank?
+      flash[:error] = "Select item to delete"
+      redirect_to("/remove_rates_menu") and return
+    end
+
+    room_rate_ids.each do |room_rate_id|
+      room_rate = RoomRate.find(room_rate_id)
+      room_rate.voided = 1
+      room_rate.save
+    end
+
+    flash[:notice] = "You have succesfully deleted room rates"
+    redirect_to("/remove_rates_menu") and return
+  end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_users_menu
     @page_title = "New Users"

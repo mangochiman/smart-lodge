@@ -1,0 +1,92 @@
+<style type="text/css">
+  .checkbox{
+    padding-left: 50px !important;
+    position: relative;
+  }
+
+</style>
+
+<div class="body in" id="sortableTable" style="height: auto; padding-left: 10px; width: 99%;">
+  <table class="table table-bordered sortableTable responsive-table">
+    <thead>
+      <tr>
+        <th style="width: 40px;"><input type="checkbox" name="all" id="select_all"></input></th>
+        <th>Room Number</th>
+        <th>Room Name</th>
+        <th>Rate</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @room_rates.each do |room_rate| %>
+        <tr>
+          <td style="text-align: center;"><input type="checkbox" class="checkbox" value="<%= room_rate.room_rate_id %>"></input></td>
+          <td><%= room_rate.room.number %></td>
+          <td><%= room_rate.room.name %></td>
+          <td><%= room_rate.rate %></td>
+          <td><%= room_rate.start_date.to_date.strftime("%d-%b-%Y") rescue room_rate.start_date %></td>
+          <td><%= room_rate.end_date.to_date.strftime("%d-%b-%Y") rescue room_rate.end_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <button class="btn btn-danger" onclick="deleteRoomRatesConfirm();"><i class="icon-remove icon-white"></i> Delete Selected</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteRoomRatesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Delete Room Rates</h4>
+      </div>
+      <div class="modal-body">
+        This will delete the selected rates. The process is <b>irreversible</b>. Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No, Am Not Sure</button>
+        <button onclick="deleteRoomRates();" type="button" class="btn btn-primary">Yes, Am Sure</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script type="text/javascript">
+
+  function deleteRoomRatesConfirm(){
+    jQuery('#deleteRoomRatesModal').modal('show');
+  }
+
+  function deleteRoomRates(){
+    checked_values = []
+    $('input:checkbox.checkbox').each(function () {
+      if (this.checked){
+        checked_value = $(this).val();
+        checked_values.push(checked_value)
+      }
+    });
+
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/admin/remove_rates";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = checked_values;
+    input.name = "room_rate_ids";
+    form.appendChild(input);
+
+    form.submit();
+
+  }
+
+</script>
