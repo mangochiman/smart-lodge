@@ -155,6 +155,27 @@ class AdminController < ApplicationController
 
   def new_rates_menu
     @page_title = "New Rates"
+    @rooms = Room.find(:all)
+    @today = Date.today.strftime("%d-%m-%Y")
+  end
+
+  def create_room_rates
+    start_date = params[:start_date].to_date rescue nil
+    end_date = params[:end_date].to_date rescue nil
+
+    room_rate = RoomRate.new
+    room_rate.room_id = params[:room_id]
+    room_rate.rate = params[:rate]
+    room_rate.start_date = start_date unless start_date.blank?
+    room_rate.end_date = end_date unless end_date.blank?
+
+    if room_rate.save
+      flash[:notice] = "You have successfully added room rate"
+      redirect_to("/new_rates_menu")
+    else
+      flash[:error] = room_rate.errors.full_messages.join('<br />')
+      redirect_to("/new_rates_menu")
+    end
   end
 
   def edit_rates_menu
