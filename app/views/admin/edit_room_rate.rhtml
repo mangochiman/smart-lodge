@@ -1,0 +1,52 @@
+<div id="div-1" class="accordion-body collapse in body">
+  <form class="form-horizontal" action="/admin/update_room_rates" method="POST">
+    <div class="form-group">
+      <label class="control-label col-lg-4">Select Room</label>
+      <div class="col-lg-7">
+        <select name="room_id" class="form-control" tabindex="8" required>
+          <option value="">Select Room</option>
+          <% @rooms.each do |room| %>
+            <option id="<%= room.room_id %>" value="<%= room.room_id %>"><%= room.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rate" class="control-label col-lg-4">Rate in Malawi Kwacha</label>
+      <div class="col-lg-7">
+        <input required type="text" name="rate" value="<%= @room_rate.rate %>" id="rate" placeholder="Rate" class="form-control" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Valid From</label>
+      <div class="col-lg-3">
+        <div class="input-group input-append date" id="dp3" data-date="<%= @start_date %>" data-date-format="dd-mm-yyyy">
+          <input class="form-control" value="<%= @start_date %>" name="start_date" readonly="" type="text"/>
+          <span class="input-group-addon add-on"><i class="icon-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Validity Ends on</label>
+      <div class="col-lg-3">
+        <div class="input-group input-append date" id="dp4" data-date="<%= @end_date %>" data-date-format="dd-mm-yyyy">
+          <input class="form-control" value="<%= @end_date %>" name="end_date" readonly="" type="text"/>
+          <span class="input-group-addon add-on"><i class="icon-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;" class="form-actions no-margin-bottom">
+      <input type="hidden" value="<%= params[:room_rate_id] %>" name="room_rate_id"></input>
+      <input type="submit" class="btn btn-success" value="Submit"/>
+    </div><br />
+  </form>
+</div>
+
+<script type="text/javascript">
+  var room_id = '<%= @room_rate.room.room_id %>';
+  document.getElementById(room_id).selected = true;
+</script>

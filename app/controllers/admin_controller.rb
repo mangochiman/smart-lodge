@@ -180,10 +180,46 @@ class AdminController < ApplicationController
 
   def edit_rates_menu
     @page_title = "Edit Rates"
+    @room_rates = RoomRate.find(:all)
   end
 
+  def edit_room_rate
+    @room_rate = RoomRate.find(params[:room_rate_id])
+    @start_date = @room_rate.start_date.strftime("%d-%m-%Y") rescue Date.today.strftime("%d-%m-%Y")
+    @end_date = @room_rate.end_date.strftime("%d-%m-%Y") rescue ""
+    @rooms = Room.find(:all)
+    @page_title = "Editing rates of <i>#{@room_rate.room.name}</i>"
+  end
+
+  def update_room_rates
+    start_date = params[:start_date].to_date rescue nil
+    end_date = params[:end_date].to_date rescue nil
+
+    room_rate = RoomRate.find(params[:room_rate_id])
+    room_rate.room_id = params[:room_id]
+    room_rate.rate = params[:rate]
+    room_rate.start_date = start_date unless start_date.blank?
+    room_rate.end_date = end_date unless end_date.blank?
+
+    if room_rate.save
+      flash[:notice] = "You have successfully updated room rate"
+      redirect_to("/edit_room_rate/#{params[:room_rate_id]}")
+    else
+      flash[:error] = room_rate.errors.full_messages.join('<br />')
+      redirect_to("/edit_room_rate/#{params[:room_rate_id]}")
+    end
+  end
+  
   def view_rates_menu
     @page_title = "View Rates"
+
+    rooms_rates = RoomRate.find(:all)
+    @room_rates_data = {}
+    rooms_rates.each do |room_rate|
+      room_type = room_rate.room.room_type.room_type
+      @room_rates_data[room_type] = [] if @room_rates_data[room_type].blank?
+      @room_rates_data[room_type] << room_rate
+    end
   end
 
   def remove_rates_menu
