@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_rooms_menu  '/new_rooms_menu',  :controller => 'admin', :action => 'new_rooms_menu'
   map.edit_rooms_menu  '/edit_rooms_menu',  :controller => 'admin', :action => 'edit_rooms_menu'
+  map.edit_room_type '/edit_room/:room_id', :controller => 'admin', :action => 'edit_room'
   map.view_rooms_menu  '/view_rooms_menu',  :controller => 'admin', :action => 'view_rooms_menu'
   map.remove_rooms_menu  '/remove_rooms_menu',  :controller => 'admin', :action => 'remove_rooms_menu'
 

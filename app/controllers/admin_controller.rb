@@ -76,14 +76,58 @@ class AdminController < ApplicationController
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_rooms_menu
     @page_title = "New Rooms"
+    @room_types = RoomType.all.collect{|r|[r.room_type, r.room_type_id]}
+  end
+
+  def create_room
+    room = Room.new
+    room.number = params[:room_number]
+    room.name = params[:room_name]
+    room.room_type_id = params[:room_type]
+    if room.save
+      flash[:notice] = "You have successfully added a new room"
+      redirect_to("/new_rooms_menu")
+    else
+      flash[:error] = room.errors.full_messages.join('<br />')
+      redirect_to("/new_rooms_menu")
+    end
   end
 
   def edit_rooms_menu
     @page_title = "Edit Rooms"
+    @rooms = Room.find(:all)
+  end
+
+  def edit_room
+    @room = Room.find(params[:room_id])
+    @room_types = RoomType.all.collect{|r|[r.room_type, r.room_type_id]}
+    @page_title = "Editing <i>#{@room.name}</i> details"
+  end
+
+  def update_room
+    room = Room.find(params[:room_id])
+    room.number = params[:room_number]
+    room.name = params[:room_name]
+    room.room_type_id = params[:room_type]
+    
+    if room.save
+      flash[:notice] = "You have successfully updated room details"
+      redirect_to("/edit_rooms_menu") and return
+    else
+      flash[:error] = room.errors.full_messages.join('<br />')
+      redirect_to("/edit_rooms_menu")
+    end
   end
 
   def view_rooms_menu
     @page_title = "View Rooms"
+    @rooms = Room.find(:all)
+    @rooms_data = {}
+    @rooms.each do |room|
+      room_type = room.room_type.room_type
+      @rooms_data[room_type] = [] if @rooms_data[room_type].blank?
+      @rooms_data[room_type] << room
+    end
   end
 
   def remove_rooms_menu
