@@ -4,7 +4,7 @@
   }
 </style>
 
-<form action="/users/create" role="form" class="form-horizontal" method="POST">
+<form action="/admin/create" role="form" class="form-horizontal" method="POST">
 
   <div class="form-group">
     <label class="control-label col-lg-4" for="first_name">First Name</label>
@@ -45,7 +45,7 @@
   <div class="form-group">
     <label class="control-label col-lg-4">Role</label>
     <div class="col-lg-7">
-      <select name="room_id" class="form-control" tabindex="8" required>
+      <select name="user_role" class="form-control" tabindex="8" required>
         <option value="">Select Role</option>
         <% @roles.each do |key, value| %>
           <option value="<%= value %>"><%= key %></option>

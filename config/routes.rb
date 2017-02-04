@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_rooms_menu  '/new_users_menu',  :controller => 'admin', :action => 'new_users_menu'
   map.edit_rooms_menu  '/edit_users_menu',  :controller => 'admin', :action => 'edit_users_menu'
+  map.edit_user '/edit_user/:user_id', :controller => 'admin', :action => 'edit_user'
   map.view_rooms_menu  '/view_users_menu',  :controller => 'admin', :action => 'view_users_menu'
   map.remove_rooms_menu  '/remove_users_menu',  :controller => 'admin', :action => 'remove_users_menu'
 

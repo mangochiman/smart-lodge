@@ -290,8 +290,45 @@ class AdminController < ApplicationController
     @page_title = "Edit Users"
   end
 
+  def edit_user
+    @user = User.find(params[:user_id])
+    @user_role = @user.role.downcase
+    @roles = [["Admin", "admin"], ["Receptionist", "receptionist"]]
+    @page_title = "Editing #{@user.username}"
+  end
+
+  def update_account_by_admin
+    @user = User.find(params[:user_id])
+    if @user.update_attributes({
+          :first_name => params[:first_name],
+          :last_name => params[:last_name],
+          :phone_number => params[:phone_number],
+          :email => params[:email]
+        })
+
+      ActiveRecord::Base.transaction do
+        user_roles = UserRole.find(:all, :conditions => ["username = ?", @user.username])
+        user_roles.each do |user_role|
+          user_role.delete
+        end
+
+        new_user_role = UserRole.new
+        new_user_role.username = @user.username
+        new_user_role.role = params[:user_role]
+        new_user_role.save
+      end
+
+      flash[:notice] = "You have successfully edited <b>#{@user.username}'s </b> account"
+      redirect_to("/view_users_menu") and return
+    else
+      flash[:error] = "Failed to update the account <b>#{@user.username}</b>"
+      redirect_to("/view_users_menu") and return
+    end
+  end
+  
   def view_users_menu
     @page_title = "View Users"
+    @users = User.find(:all, :conditions => ["user_id != ?", session[:user].user_id])
   end
 
   def remove_users_menu

@@ -1,0 +1,62 @@
+<form action="/admin/update_account_by_admin" role="form" class="form-horizontal" method="POST">
+  <div class="form-group">
+    <label class="control-label col-lg-4">Role</label>
+    <div class="col-lg-7">
+      <select name="user_role" class="form-control" tabindex="8" required>
+        <option value="">Select Role</option>
+        <% @roles.each do |key, value| %>
+          <option value="<%= value %>" id="<%= value %>"><%= key %></option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="first_name">First Name</label>
+    <div class="col-lg-7">
+      <input type="text" value="<%= @user.first_name %>" name="first_name" class="form-control" placeholder="First Name" id="first_name" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="last_name">Last Name</label>
+    <div class="col-lg-7">
+      <input type="text" value="<%= @user.last_name %>" name="last_name" class="form-control" placeholder="Last Name" id="last_name" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="phone_number">Phone #</label>
+    <div class="col-lg-7">
+      <input type="text" value="<%= @user.phone_number %>" name="phone_number" class="form-control" placeholder="Phone Number" id="phone_number" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="email">E-mail</label>
+    <div class="col-lg-7">
+      <input type="email" value="<%= @user.email %>" name="email" class="form-control" placeholder="E-mail" id="email" required/>
+    </div>
+  </div>
+
+
+  <div class="form-group modal-footer">
+    <label class="control-label col-lg-4" for="confirm_password">&nbsp;</label>
+    <div class="col-lg-7">
+      <input class="btn btn-primary " type="submit" value="Update Account"></input>
+    </div>
+  </div>
+
+  <input type="hidden" value="<%=  params[:user_id] %>" name="user_id"/>
+</form>
+
+<script type="text/javascript">
+  var userRole = '<%= @user_role %>';
+  function selectPreviousUserRole(){
+    if (userRole.length > 0){
+      document.getElementById(userRole).selected = true;
+    }
+  }
+  window.setTimeout("selectPreviousUserRole()", 350);
+
+</script>
