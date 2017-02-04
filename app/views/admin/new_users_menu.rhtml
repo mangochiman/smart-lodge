@@ -1,0 +1,75 @@
+<style type="text/javascript">
+  .custom-align{
+    margin-right: 75px;
+  }
+</style>
+
+<form action="/users/create" role="form" class="form-horizontal" method="POST">
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="first_name">First Name</label>
+    <div class="col-lg-7">
+      <input type="text" name="first_name" class="form-control" placeholder="First Name" id="first_name" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="last_name">Last Name</label>
+    <div class="col-lg-7">
+      <input type="text" name="last_name" class="form-control" placeholder="Last Name" id="last_name" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="phone_number">Phone #</label>
+    <div class="col-lg-7">
+      <input type="text" name="phone_number" class="form-control" placeholder="Phone Number" id="phone_number" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="email">E-mail</label>
+    <div class="col-lg-7">
+      <input type="email" name="email" class="form-control" placeholder="E-mail" id="email" required/>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="username">Username</label>
+    <div class="col-lg-7">
+      <input type="username" name="username" class="form-control" placeholder="Username" id="username" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4">Role</label>
+    <div class="col-lg-7">
+      <select name="room_id" class="form-control" tabindex="8" required>
+        <option value="">Select Role</option>
+        <% @roles.each do |key, value| %>
+          <option value="<%= value %>"><%= key %></option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="password">Password</label>
+    <div class="col-lg-7">
+      <input type="password" name="password" class="form-control" placeholder="Password" id="password" required/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="confirm_password">Confirm Password</label>
+    <div class="col-lg-7">
+      <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" id="confirm_password" required/>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <input class="btn btn-primary custom-align " type="submit" value="Create Account"></input>
+  </div>
+
+</form>

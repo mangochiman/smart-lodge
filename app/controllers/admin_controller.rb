@@ -246,6 +246,44 @@ class AdminController < ApplicationController
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_users_menu
     @page_title = "New Users"
+    @roles = [["Admin", "admin"], ["Receptionist", "receptionist"]]
+  end
+
+  def create
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+    email = params[:email]
+    phone_number = params[:phone_number]
+    username = params[:username]
+    password = params[:password]
+    password_confirm = params[:confirm_password]
+
+    if (password != password_confirm)
+      flash[:error] = "Password Mismatch"
+      redirect_to("/new_users_menu") and return
+    end
+    salt = User.random_string(10)
+
+    user = User.new
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    user.phone_number = phone_number
+    user.salt = salt
+    user.password = User.encrypt(password, salt)
+    user. username = username
+
+    if user.save
+      user_role = UserRole.new
+      user_role.username = user.username
+      user_role.role = params[:user_role]
+      user_role.save
+      flash[:notice] = "You have successfully created an account."
+      redirect_to("/new_users_menu") and return
+    else
+      flash[:error] = user.errors.full_messages.join('<br />')
+      redirect_to("/new_users_menu") and return
+    end
   end
 
   def edit_users_menu
