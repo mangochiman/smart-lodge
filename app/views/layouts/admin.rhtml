@@ -284,15 +284,21 @@
       <!--END PAGE CONTENT -->
       <!-- RIGHT STRIP  SECTION -->
       <div id="right">
-
+        <div class="well well-small">
+          <button class="btn btn-block"> <b>Rooms by Type</b> </button>
+          <ul class="list-unstyled">
+            <% room_types.each do |room_type| %>
+                <li><span class="col-lg-8"><%= room_type.room_type %></span> <button class="btn btn-default btn-circle" type="button" ><span><%= room_type.rooms.count %></span></button></li>
+            <% end %>
+          </ul>
+        </div>
 
         <div class="well well-small">
-          <button class="btn btn-block"> <b>Total Books</b> </button>
-          <ul class="list-unstyled">
-            <li><span class="col-lg-8">Primary</span> <button class="btn btn-default btn-circle" type="button" ><span>&nbsp;</span></button></li>
-            <li><span class="col-lg-8">Secondary </span><button class="btn btn-default btn-circle" type="button"><span>&nbsp;</span></button></li>
-            <li><span class="col-lg-8">Tertiary </span><button class="btn btn-default btn-circle" type="button"><span>&nbsp;</span></button></li>
-          </ul>
+          <button class="btn btn-block"> <b>Rates By Room</b> </button>
+        </div>
+
+        <div class="well well-small">
+          <button class="btn btn-block"> <b>Available Users</b> </button>
         </div>
       </div>
       <!-- END RIGHT STRIP  SECTION -->
