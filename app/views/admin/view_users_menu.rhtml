@@ -7,13 +7,13 @@
     margin-bottom: 0;
   }
 
-  .dropdown-user {
+  .custom-dropdown-user {
     margin: 13px 0;
     padding: 5px;
     height: 100%;
   }
 
-  .dropdown-user:hover {
+  .custom-dropdown-user:hover {
     cursor: pointer;
   }
 
@@ -47,7 +47,7 @@
           <strong><%= user.username %></strong><br>
           <span class="text-muted">User level: <%= user.role.capitalize %></span>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".<%= user.username %>">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 custom-dropdown-user dropdown-user" data-for=".<%= user.username %>">
           <i class="glyphicon glyphicon-chevron-down text-muted"></i>
         </div>
       </div>
