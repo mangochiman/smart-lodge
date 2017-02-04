@@ -32,7 +32,8 @@ ActionController::Routing::Routes.draw do |map|
   map.view_rooms_menu  '/view_users_menu',  :controller => 'admin', :action => 'view_users_menu'
   map.remove_rooms_menu  '/remove_users_menu',  :controller => 'admin', :action => 'remove_users_menu'
 
-  
+
+  map.my_account  '/my_account',  :controller => 'admin', :action => 'my_account'
   map.admin_dashboard  '/admin_dashboard',  :controller => 'admin', :action => 'dashboard'
   map.settings_menu  '/settings_menu',  :controller => 'pages', :action => 'settings_menu'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -334,6 +334,11 @@ class AdminController < ApplicationController
   def remove_users_menu
     @page_title = "Remove Users"
   end
+
+  def my_account
+    @page_title = "My Profile"
+    @user = User.find(session[:user].user_id)
+  end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 end
