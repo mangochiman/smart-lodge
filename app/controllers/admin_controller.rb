@@ -3,6 +3,16 @@ class AdminController < ApplicationController
   
   def dashboard
     @page_title = "Admin Dashboard"
+    @room_types = RoomType.all
+
+    @rooms = Room.find(:all)
+    @room_types_without_rooms = RoomType.find(:all, :joins => "LEFT JOIN rooms ON 
+            room_types.room_type_id=rooms.room_type_id AND rooms.voided=0",
+      :conditions => ["rooms.room_type_id IS NULL"])
+
+    @rooms_without_rates = Room.find(:all, :joins => "LEFT JOIN room_rates ON
+            rooms.room_id=room_rates.room_id AND room_rates.voided=0",
+      :conditions => ["room_rates.room_id IS NULL"])
   end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   def new_room_type_menu

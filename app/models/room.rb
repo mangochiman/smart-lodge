@@ -5,5 +5,5 @@ class Room < ActiveRecord::Base
   belongs_to :room_type, :primary_key => :room_type_id
   has_many :room_rates, :foreign_key => :room_id
 
-  default_scope :conditions => "voided = 0"
+  default_scope :conditions => "#{self.table_name}.voided = 0"
 end
