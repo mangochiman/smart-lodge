@@ -101,5 +101,25 @@
         </table>
       </div>
     </div>
+
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <i class="icon-bell"></i> Room Types Without Rooms
+      </div>
+
+      <div class="panel-body">
+        <div class="list-group">
+          <% @room_types_without_rooms.each do |room_type| %>
+            <a href="#" class="list-group-item">
+              <i class="icon-warning-sign"></i> <%= room_type.room_type %>
+              <span class="pull-right text-muted small"><em> <%= room_type.created_at.to_date.strftime("%d-%b-%Y") %></em>
+              </span>
+            </a>
+          <% end %>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </div>
