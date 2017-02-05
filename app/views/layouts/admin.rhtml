@@ -288,17 +288,46 @@
           <button class="btn btn-block"> <b>Rooms by Type</b> </button>
           <ul class="list-unstyled">
             <% room_types.each do |room_type| %>
-                <li><span class="col-lg-8"><%= room_type.room_type %></span> <button class="btn btn-default btn-circle" type="button" ><span><%= room_type.rooms.count %></span></button></li>
+              <li><span class="col-lg-8"><%= room_type.room_type %></span> <button class="btn btn-default btn-circle" type="button" ><span><%= room_type.rooms.count %></span></button></li>
             <% end %>
           </ul>
         </div>
 
         <div class="well well-small">
           <button class="btn btn-block"> <b>Rates By Room</b> </button>
+
+          <ul class="list-unstyled">
+            <% room_rates.each do |room_name, room_rate| %>
+              <li><%= room_name %> - <a href="#"><%= room_rate%></a></li>
+            <% end %>
+          </ul>
         </div>
 
         <div class="well well-small">
-          <button class="btn btn-block"> <b>Available Users</b> </button>
+          <button class="btn btn-block"> <b>Users</b> </button>
+          <div class="panel panel-info">
+            <div class="panel-body">
+              <div class="panel-group" id="accordion">
+
+                <% available_users.each do |user| %>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<%= user.username %>" class="collapsed"><%= user.username %></a>
+                      </h4>
+                    </div>
+                    <div id="<%= user.username %>" class="panel-collapse collapse" style="height: 0px;">
+                      <div class="panel-body">
+
+                        <b><%= user.first_name.to_s + " " + user.last_name.to_s %></b> member since <b><%= user.created_at.to_date.strftime("%d/%b/%Y") %></b>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- END RIGHT STRIP  SECTION -->
