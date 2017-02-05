@@ -296,11 +296,38 @@
         <div class="well well-small">
           <button class="btn btn-block"> <b>Rates By Room</b> </button>
 
-          <ul class="list-unstyled">
-            <% room_rates.each do |room_name, room_rate| %>
-              <li><%= room_name %> - <a href="#"><%= room_rate%></a></li>
-            <% end %>
-          </ul>
+          <div class="panel panel-info">
+            <div class="panel-body">
+              <div class="panel-group" id="accordion">
+
+                <% room_rates.each do |room, room_rate| %>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<%= room.room_id %>" class="collapsed"><%= room.name %></a>
+                      </h4>
+                    </div>
+                    <div id="<%= room.room_id %>" class="panel-collapse collapse" style="height: 0px;">
+                      <div class="panel-body">
+                        <% unless room_rate.blank? %>
+                          <b><%= number_to_currency(room_rate.rate, :unit => 'MK') %></b> created on <b><%= room_rate.created_at.to_date.strftime("%d/%b/%Y") %></b>
+                        <% else %>
+                          Not set
+                        <% end %>
+
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
         </div>
 
         <div class="well well-small">

@@ -16,11 +16,8 @@ module ApplicationHelper
     room_rates = []
     
     rooms.each do |room|
-      room_name = room.name
-      room_rate = room.room_rates.last.rate rescue nil
-      room_rate = number_to_currency(room_rate, :unit => 'MK') unless room_rate.blank?
-      room_rate = 'N/A' if room_rate.blank?
-      room_rates << [room_name, room_rate]
+      room_rate = room.room_rates.last
+      room_rates << [room, room_rate]
     end
 
     return room_rates
