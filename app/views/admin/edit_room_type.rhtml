@@ -41,12 +41,12 @@
               </div>
             </div>
 
-             <input type="hidden" value="<%= @room_type.room_type_id %>" name="room_type_id"></input>
+            <input type="hidden" value="<%= @room_type.room_type_id %>" name="room_type_id"></input>
 
             <div style="text-align:center;" class="form-actions no-margin-bottom">
               <input type="submit" class="btn btn-success" value="Update Room Type"/>
             </div>
-             
+
           </form>
         </div>
 
@@ -56,3 +56,10 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+  window.setTimeout(function(){
+    jQuery('.room_types').addClass('active');
+    jQuery('#room-type-nav').addClass('in');
+  }, 150);
+</script>

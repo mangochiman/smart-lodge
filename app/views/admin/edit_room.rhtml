@@ -35,4 +35,9 @@
 <script type="text/javascript">
   var room_type_id = '<%=  @room.room_type_id %>';
   document.getElementById(room_type_id).selected = true;
+
+  window.setTimeout(function(){
+    jQuery('.rooms').addClass('active');
+    jQuery('#room-nav').addClass('in');
+  }, 150);
 </script>

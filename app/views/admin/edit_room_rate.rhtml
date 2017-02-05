@@ -49,4 +49,9 @@
 <script type="text/javascript">
   var room_id = '<%= @room_rate.room.room_id %>';
   document.getElementById(room_id).selected = true;
+
+  window.setTimeout(function(){
+    jQuery('.rates').addClass('active');
+    jQuery('#rates-nav').addClass('in');
+  }, 150);
 </script>
