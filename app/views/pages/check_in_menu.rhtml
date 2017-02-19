@@ -4,7 +4,7 @@
   }
 </style>
 <div class="body">
-  <form class="form-inline" novalidate="novalidate">
+  <form class="form-inline" method="GET" novalidate="novalidate" action="/pages/search_results">
     <div class="row" style="padding-right: 60px;" >
       <table class="pull-right">
         <tr>
@@ -12,7 +12,7 @@
             <div class="form-group">
               <label for="fname" class="control-label col-lg-4">First Name</label>
               <div class="col-lg-8">
-                <input class="form-control" id="fname" type="text"/>
+                <input class="form-control" id="fname" type="text" name="first_name"/>
               </div>
             </div>
           </td>
@@ -20,7 +20,7 @@
             <div class="form-group">
               <label for="lname" class="control-label col-lg-4">Last Name</label>
               <div class="col-lg-8">
-                <input class="form-control" id="lname" type="text"/>
+                <input class="form-control" id="lname" type="text" name="last_name"/>
               </div>
             </div>
           </td>
@@ -28,7 +28,7 @@
             <div class="form-group">
               <label for="gender" class="control-label col-lg-4">Gender</label>
               <div class="col-lg-8">
-                <select class="form-control" id="gender">
+                <select class="form-control" id="gender" name="gender">
                    <option></option>
                   <option value="M">Male</option>
                   <option value="F">Female</option>
@@ -37,7 +37,7 @@
             </div>
           </td>
           <td>
-            <a href="#" class="btn btn-success btn-lg btn-flat">Search</a>
+            <button type="submit" class="btn btn-success btn-lg btn-flat">Search</button>
           </td>
         </tr>
       </table>

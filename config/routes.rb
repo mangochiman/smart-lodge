@@ -45,6 +45,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_payment_menu  '/new_payment_menu',  :controller => 'pages', :action => 'new_payment_menu'
   map.view_payments_menu  '/view_payments_menu',  :controller => 'pages', :action => 'view_payments_menu'
+  #map.search_results  '/search_results',  :controller => 'pages', :action => 'search_results'
   #########GUESTS END########################################################################
   
   # The priority is based upon order of creation: first created -> highest priority.

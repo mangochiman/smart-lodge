@@ -23,5 +23,10 @@ class PagesController < ApplicationController
   def view_payments_menu
     @page_title = "View Payments"
   end
+
+  def search_results
+    @page_title = "Search Results"
+    @people = Person.search(params)
+  end
   
 end
