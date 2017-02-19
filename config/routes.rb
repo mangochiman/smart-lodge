@@ -36,6 +36,17 @@ ActionController::Routing::Routes.draw do |map|
   map.my_account  '/my_account',  :controller => 'admin', :action => 'my_account'
   map.admin_dashboard  '/admin_dashboard',  :controller => 'admin', :action => 'dashboard'
   map.settings_menu  '/settings_menu',  :controller => 'pages', :action => 'settings_menu'
+
+  #########GUESTS START ########################################################################
+  map.guests  '/guests',  :controller => 'pages', :action => 'guests'
+  map.check_in_menu  '/check_in_menu',  :controller => 'pages', :action => 'check_in_menu'
+  map.check_out_menu  '/check_out_menu',  :controller => 'pages', :action => 'check_out_menu'
+  map.invoices_menu  '/invoices_menu',  :controller => 'pages', :action => 'invoices_menu'
+
+  map.new_payment_menu  '/new_payment_menu',  :controller => 'pages', :action => 'new_payment_menu'
+  map.view_payments_menu  '/view_payments_menu',  :controller => 'pages', :action => 'view_payments_menu'
+  #########GUESTS END########################################################################
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
