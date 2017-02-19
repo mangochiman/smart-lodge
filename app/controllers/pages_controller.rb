@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  layout "guests"
   def guests
     @page_title = "Guests Dashboard"
   end
