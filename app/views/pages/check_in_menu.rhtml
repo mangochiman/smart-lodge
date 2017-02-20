@@ -29,7 +29,7 @@
               <label for="gender" class="control-label col-lg-4">Gender</label>
               <div class="col-lg-8">
                 <select class="form-control" id="gender" name="gender">
-                   <option></option>
+                  <option></option>
                   <option value="M">Male</option>
                   <option value="F">Female</option>
                 </select>
@@ -43,27 +43,27 @@
       </table>
     </div>
   </form>
-  <hr>
+  <hr/>
 </div>
 
 <div class="panel-body">
-  <div id="wizardV" >
-    <h2> Personal </h2>
-    <section>
-      <form role="form">
+  <form role="form" action="/pages/create_bookings" id="bookings">
+    <div id="wizardV" >
+      <h2> Personal </h2>
+      <section>
         <div class="form-group">
           <label>First Name</label>
-          <input class="form-control" name="first_name" required />
+          <input class="form-control" name="person[first_name]" required />
         </div>
 
         <div class="form-group">
           <label>Last Name</label>
-          <input class="form-control" name="last_name" />
+          <input class="form-control" name="person[last_name]" />
         </div>
 
         <div class="form-group">
           <label>Gender</label>
-          <select class="form-control">
+          <select class="form-control" name="person[gender]">
             <option></option>
             <option>Male</option>
             <option>Female</option>
@@ -72,7 +72,7 @@
 
         <div class="form-group">
           <label>Title</label>
-          <select class="form-control">
+          <select class="form-control" name=person[title]>
             <option></option>
             <option>Mr</option>
             <option>Mrs</option>
@@ -84,27 +84,26 @@
 
         <div class="form-group">
           <label>Phone Number</label>
-          <input class="form-control" name="phone"/>
+          <input class="form-control" name="person[phone_number]"/>
         </div>
 
         <div class="form-group">
           <label>Email</label>
-          <input class="form-control" name="email" />
+          <input class="form-control" name="person[email]" />
         </div>
 
         <div class="form-group">
           <label>Address</label>
-          <textarea class="form-control" rows="3" name="address"></textarea>
+          <textarea class="form-control" rows="3" name="person[address]"></textarea>
         </div>
-      </form>
-    </section>
 
-    <h2> Reservations </h2>
-    <section>
-      <form role="form">
+      </section>
+
+      <h2> Reservations </h2>
+      <section>
         <div class="form-group">
           <label>Select Room</label>
-          <select class="form-control">
+          <select class="form-control" name="room">
             <option></option>
             <option>1</option>
             <option>2</option>
@@ -118,25 +117,26 @@
           <label>Reservation Dates</label>
           <div class="input-group">
             <span class="input-group-addon"><i class="icon-calendar"></i></span>
-            <input name="reservation" id="reservation" class="form-control" type="text"/>
+            <input name="reservation_dates" id="reservation" class="form-control" type="text"/>
           </div>
         </div>
 
-      </form>
-    </section>
 
-    <h2>Agreement</h2>
-    <section>
-      <p style="text-align:justify;color:gray;">
-        <b> Agreement & Declaration</b> <br /><br />
-        The customer agrees with the Terms and Conditions
-        <br />
+      </section>
+
+      <h2>Agreement</h2>
+      <section>
+        <p style="text-align:justify;color:gray;">
+          <b> Agreement & Declaration</b> <br /><br />
+          The customer agrees with the Terms and Conditions
+          <br />
 
 
-      </p>
-    </section>
-  </div>
+        </p>
+      </section>
 
+    </div>
+  </form>
 </div>
 
 <script type="text/javascript">
@@ -144,6 +144,10 @@
   window.setTimeout(function(){
     jQuery('.guests').addClass('active');
     jQuery('#guest-nav').addClass('in');
+    finsishButton = jQuery('a[href=#finish]')[0];
+    finsishButton.onclick = function(){
+      document.getElementById("bookings").submit();
+    }
   }, 150);
-  
+
 </script>

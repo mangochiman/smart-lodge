@@ -28,5 +28,14 @@ class PagesController < ApplicationController
     @page_title = "Search Results"
     @people = Person.search(params)
   end
-  
+
+  def create_bookings
+    person = Person.new(params[:person])
+    if person.save
+      flash[:notice] = "Check-in is successful"
+    else
+      flash[:error] = "There was an error"
+    end
+    redirect_to("/check_in_menu")
+  end
 end
