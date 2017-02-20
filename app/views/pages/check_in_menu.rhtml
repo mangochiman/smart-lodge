@@ -47,7 +47,7 @@
 </div>
 
 <div class="panel-body">
-  <form role="form" action="/pages/create_bookings" id="bookings">
+  <form role="form" action="/pages/create_bookings" id="bookings" method="POST">
     <div id="wizardV" >
       <h2> Personal </h2>
       <section>
@@ -103,13 +103,11 @@
       <section>
         <div class="form-group">
           <label>Select Room</label>
-          <select class="form-control" name="room">
+          <select class="form-control" name="room_id">
             <option></option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <% @rooms.each do |room| %>
+              <option value="<%= room.room_id %>"><%= room.name %>(<%= room.room_type.room_type %>)</option>
+            <% end %>
           </select>
         </div>
 
@@ -144,10 +142,13 @@
   window.setTimeout(function(){
     jQuery('.guests').addClass('active');
     jQuery('#guest-nav').addClass('in');
+  }, 150);
+
+  window.setInterval(function(){
     finsishButton = jQuery('a[href=#finish]')[0];
     finsishButton.onclick = function(){
       document.getElementById("bookings").submit();
     }
-  }, 150);
+  }, 350);
 
 </script>
