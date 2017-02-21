@@ -14,6 +14,7 @@ class PagesController < ApplicationController
 
   def check_out_menu
     @page_title = "Check Out"
+    @people = Person.all
   end
 
   def invoices_menu
