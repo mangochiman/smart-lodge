@@ -46,13 +46,19 @@ class PagesController < ApplicationController
       booking.person_id = person.person_id
       booking.start_date = start_date
       booking.end_date = end_date
-      booking.status = 'active'
+      #booking.status = 'active'
       booking.save
       
       room_booking = RoomBooking.new
       room_booking.booking_id = booking.booking_id
       room_booking.room_id = room_id
       room_booking.save
+
+      booking_status = BookingStatus.new
+      booking_status.booking_id = booking.booking_id
+      booking_status.status = 'active'
+      booking_status.status_date = Date.today
+      booking_status.save
 
       flash[:notice] = "Check-in is successful"
     else
