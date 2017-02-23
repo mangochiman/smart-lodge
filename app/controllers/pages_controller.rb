@@ -32,10 +32,12 @@ class PagesController < ApplicationController
 
   def view_all_check_ins_menu
     @page_title = "View all check ins"
+    @checkins_ever = Booking.checkins_ever
   end
 
   def view_all_check_outs_menu
     @page_title = "View all check outs"
+    @checkouts_ever = Booking.checkouts_ever
   end
 
   def search_results

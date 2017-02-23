@@ -1,0 +1,46 @@
+
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+          <th>Room</th>
+          <th>Check-In Date</th>
+          <th>Checkout Date</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%  @checkins_ever.each do |person, booking_status| %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+            <td class="center"><%= RoomBooking.room(booking_status.booking_id).name %></td>
+            <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") %></td>
+            <td><%= Booking.checkout_date(booking_status.booking_id) %></td>
+            <td><button class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-in</button></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.dashboard').addClass('active');
+  }, 150);
+
+</script>
