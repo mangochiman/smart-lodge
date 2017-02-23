@@ -2,7 +2,8 @@ class PagesController < ApplicationController
   layout "guests"
   def guests
     @page_title = "Guests Dashboard"
-    @recent_check_ins = Booking.find(:all, :order => "booking_id DESC", :conditions => ["status =?", "active"])
+    @recent_check_ins = Booking.recent_bookings #Booking.find(:all, :order => "booking_id DESC", :conditions => ["status =?", "active"])
+    @recent_check_outs = Booking.recent_checkouts
     @available_rooms = Room.available_rooms
     @occupied_rooms = Room.occupied_rooms
   end
@@ -27,6 +28,14 @@ class PagesController < ApplicationController
 
   def view_payments_menu
     @page_title = "View Payments"
+  end
+
+  def view_all_check_ins_menu
+    @page_title = "View all check ins"
+  end
+
+  def view_all_check_outs_menu
+    @page_title = "View all check outs"
   end
 
   def search_results

@@ -36,7 +36,8 @@ ActionController::Routing::Routes.draw do |map|
   map.my_account  '/my_account',  :controller => 'admin', :action => 'my_account'
   map.admin_dashboard  '/admin_dashboard',  :controller => 'admin', :action => 'dashboard'
   map.settings_menu  '/settings_menu',  :controller => 'pages', :action => 'settings_menu'
-
+  map.view_all_check_ins_menu  '/view_all_check_ins_menu',  :controller => 'pages', :action => 'view_all_check_ins_menu'
+  map.view_all_check_outs_menu  '/view_all_check_outs_menu',  :controller => 'pages', :action => 'view_all_check_outs_menu'
   #########GUESTS START ########################################################################
   map.guests  '/guests',  :controller => 'pages', :action => 'guests'
   map.check_in_menu  '/check_in_menu',  :controller => 'pages', :action => 'check_in_menu'
