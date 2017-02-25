@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
   def check_out_menu
     @page_title = "Check Out"
-    @people = Person.all
+    @active_check_ins = Booking.active_check_ins
   end
 
   def invoices_menu

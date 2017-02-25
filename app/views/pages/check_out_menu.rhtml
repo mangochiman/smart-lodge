@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @people.each do |person| %>
+        <% @active_check_ins.each do |person, booking_details| %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>

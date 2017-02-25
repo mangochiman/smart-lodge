@@ -4,6 +4,7 @@ class Booking < ActiveRecord::Base
 
   belongs_to :person, :primary_key => "person_id", :foreign_key => "person_id"
   belongs_to :room_booking, :primary_key => "booking_id", :foreign_key => "booking_id"
+  has_many :booking_statuses, :primary_key => "booking_id", :foreign_key => "booking_id"
   default_scope :conditions => "#{self.table_name}.voided = 0"
 
   def self.recent_bookings
@@ -53,5 +54,24 @@ class Booking < ActiveRecord::Base
   def self.checkout_date(booking_id)
     return "&nbsp;"
   end
-  
+
+  def self.active_check_ins
+    active_booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
+      :conditions => ["status =?", "active"])
+    booking_details = []
+
+    active_booking_statuses.each do |booking_status|
+      booking = booking_status.booking
+      booking_statuses = booking.booking_statuses.map(&:status)
+      
+      if (booking_statuses.include?('checkout'))
+        next
+      end
+      person = booking.person
+      booking_details << [person, booking_status]
+    end
+    
+    return booking_details
+  end
+
 end
