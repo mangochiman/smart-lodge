@@ -20,6 +20,7 @@ class PagesController < ApplicationController
 
   def invoices_menu
     @page_title = "Invoices"
+    @available_unique_bookings = Booking.available_unique_bookings
   end
 
   def new_payment_menu
