@@ -18,7 +18,7 @@
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
-            <td><button class="btn btn-warning btn-block"><i class="icon-eye-open icon-white"></i> View Invoice</button></td>
+            <td><button onclick="viewInvoice('<%= booking_details.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-eye-open icon-white"></i> Create/View Invoice</button></td>
           </tr>
         <% end %>
       </tbody>
@@ -38,4 +38,8 @@
     jQuery('#guest-nav').addClass('in');
   }, 150);
 
+  function viewInvoice(booking_id){
+    window.location = "/view_invoice?booking_id=" + booking_id;
+  }
+  
 </script>
