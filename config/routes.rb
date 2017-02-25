@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.guests  '/guests',  :controller => 'pages', :action => 'guests'
   map.check_in_menu  '/check_in_menu',  :controller => 'pages', :action => 'check_in_menu'
   map.check_out_menu  '/check_out_menu',  :controller => 'pages', :action => 'check_out_menu'
+  map.check_out_client  '/check_out_client',  :controller => 'pages', :action => 'check_out_client'
   map.invoices_menu  '/invoices_menu',  :controller => 'pages', :action => 'invoices_menu'
 
   map.new_payment_menu  '/new_payment_menu',  :controller => 'pages', :action => 'new_payment_menu'

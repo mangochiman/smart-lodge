@@ -86,4 +86,16 @@ class Booking < ActiveRecord::Base
     return booking_details
   end
 
+  def self.room(booking_id)
+    room_booking = RoomBooking.find_last_by_booking_id(booking_id)
+    room = room_booking.room
+    return room
+  end
+
+  def self.check_in_date(booking_id)
+    booking_status = BookingStatus.find(:last, :conditions => ["booking_id =? AND status =?",
+        booking_id, "active"])
+    return booking_status.status_date
+  end
+
 end

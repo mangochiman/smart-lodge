@@ -18,7 +18,7 @@
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
-            <td><button class="btn btn-warning btn-block"><i class="icon-pencil icon-white"></i> Checkout</button></td>
+            <td><button onclick="checkoutClient('<%= booking_details.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-ok icon-white"></i> Checkout</button></td>
           </tr>
         <% end %>
       </tbody>
@@ -37,5 +37,9 @@
     jQuery('.guests').addClass('active');
     jQuery('#guest-nav').addClass('in');
   }, 150);
+
+  function checkoutClient(booking_id){
+    window.location = "/check_out_client?booking_id=" + booking_id;
+  }
 
 </script>

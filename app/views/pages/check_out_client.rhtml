@@ -1,0 +1,58 @@
+
+<div class="panel">
+
+
+  <div class="">
+    <div class="list-group">
+      <a href="#" class="list-group-item">
+        <i></i> Name
+        <span class="pull-right"><em> <b><%= "#{@person.first_name } #{@person.last_name }" %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> Gender
+        <span class="pull-right"><em> <b><%= @person.gender %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> Phone
+        <span class="pull-right"><em> <b><%= @person.phone_number %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> E-mail
+        <span class="pull-right"><em> <b><%= @person.email %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> Address
+        <span class="pull-right"><em> <b><%= @person.address %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> Check-in Date
+        <span class="pull-right"><em> <b><%= @check_in_date.to_date.strftime("%d-%b-%Y") %></b></em>
+        </span>
+      </a>
+      <a href="#" class="list-group-item">
+        <i></i> Total Days Spent
+        <span class="pull-right"><em> <b><%= @total_days_spent %></b></em>
+        </span>
+      </a>
+    </div>
+
+    <a href="#" class="btn btn-default btn-block btn-primary">Confirm Checkout</a>
+  </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.guests').addClass('active');
+    jQuery('#guest-nav').addClass('in');
+  }, 150);
+
+</script>

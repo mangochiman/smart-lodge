@@ -18,6 +18,14 @@ class PagesController < ApplicationController
     @active_check_ins = Booking.active_check_ins
   end
 
+  def check_out_client
+    @room = Booking.room(params[:booking_id])
+    @page_title = "Check Out - Room #: <a>#{@room.number}</a>, Room Name: <a>#{@room.name}</a>"
+    @person = Booking.find(params[:booking_id]).person
+    @check_in_date = Booking.check_in_date(params[:booking_id])
+    @total_days_spent = (Date.today - @check_in_date.to_date).to_i
+  end
+  
   def invoices_menu
     @page_title = "Invoices"
     @available_unique_bookings = Booking.available_unique_bookings
