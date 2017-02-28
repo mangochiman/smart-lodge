@@ -32,7 +32,33 @@ class PagesController < ApplicationController
   end
 
   def new_invoice
+    @page_title = "New Invoice"
     @booking = Booking.find(params[:booking_id])
+    @billable_items = @booking.billable_items
+    @person = Booking.find(params[:booking_id]).person
+  end
+
+  def create_invoice_items
+    billable_item = BillableItem.new(params[:invoice])
+    if billable_item.save
+      flash[:notice] = "You have successfully added new item"
+      redirect_to("/new_invoice?booking_id=#{params[:invoice][:booking_id]}")
+    else
+      flash[:error] = "Failed to add new item"
+      redirect_to("/new_invoice?booking_id=#{params[:invoice][:booking_id]}")
+    end
+  end
+
+  def void_billable_item
+    billable_item = BillableItem.find(params[:billable_item_id])
+    billable_item.voided = 1
+    if billable_item.save
+      flash[:notice] = "You have successfull removed the item"
+    else
+      flash[:error] = "Failed to removed the item"
+    end
+    
+    redirect_to("/new_invoice?booking_id=#{params[:booking_id]}")
   end
 
   def view_invoice
