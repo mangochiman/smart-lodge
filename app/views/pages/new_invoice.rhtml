@@ -69,9 +69,9 @@
                   <% @billable_items.each do | billable_item| %>
                     <tr>
                       <td><%=  billable_item.item %></td>
-                      <td class="text-center"><%=  billable_item.price %></td>
+                      <td class="text-center"><%=  number_to_currency(billable_item.price, :unit => 'MWK') %></td>
                       <td class="text-center"><%=  billable_item.quantity %></td>
-                      <td class="text-right"><%=  billable_item.price * billable_item.quantity %></td>
+                      <td class="text-right"><%=  number_to_currency(billable_item.price * billable_item.quantity, :unit => 'MWK') %></td>
                       <td class="text-center">
                         <button class="btn btn-danger" onmousedown="showConfirmationPopup('<%=  billable_item.billable_item_id%>')"><i class="icon-remove icon-white"></i> Delete</button>
                       </td>
@@ -82,7 +82,7 @@
                     <td class="no-line"></td>
                     <td class="no-line"></td>
                     <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right"><%= sub_total %></td>
+                    <td class="no-line text-right"><%= number_to_currency(sub_total, :unit => 'MWK') %></td>
                   </tr>
                 </tbody>
               </table>
