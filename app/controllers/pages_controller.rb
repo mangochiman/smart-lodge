@@ -31,6 +31,10 @@ class PagesController < ApplicationController
     @available_unique_bookings = Booking.available_unique_bookings
   end
 
+  def new_invoice
+    @booking = Booking.find(params[:booking_id])
+  end
+
   def view_invoice
     @room = Booking.room(params[:booking_id])
     @person = Booking.find(params[:booking_id]).person
