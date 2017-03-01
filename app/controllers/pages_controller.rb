@@ -116,7 +116,7 @@ class PagesController < ApplicationController
 
       booking_status = BookingStatus.new
       booking_status.booking_id = booking.booking_id
-      booking_status.status = 'active'
+      booking_status.status = 'checkin'
       booking_status.status_date = Date.today
       booking_status.save
 

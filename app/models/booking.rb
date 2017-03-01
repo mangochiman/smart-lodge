@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
 
   def self.recent_bookings
     booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
-      :conditions => ["status =?", "active"])
+      :conditions => ["status =?", "checkin"])
     booking_details = []
     booking_statuses.each do |booking_status|
       person = booking_status.booking.person
@@ -21,7 +21,7 @@ class Booking < ActiveRecord::Base
 
   def self.checkins_ever
     booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
-      :conditions => ["status =?", "active"])
+      :conditions => ["status =?", "checkin"])
     booking_details = []
     booking_statuses.each do |booking_status|
       person = booking_status.booking.person
@@ -58,7 +58,7 @@ class Booking < ActiveRecord::Base
 
   def self.active_check_ins
     active_booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
-      :conditions => ["status =?", "active"])
+      :conditions => ["status =?", "checkin"])
     booking_details = []
 
     active_booking_statuses.each do |booking_status|
@@ -76,7 +76,7 @@ class Booking < ActiveRecord::Base
   end
 
   def self.available_unique_bookings
-    available_bookings = BookingStatus.find(:all, :group => "booking_id", :conditions => ["status =?", "active"])
+    available_bookings = BookingStatus.find(:all, :group => "booking_id", :conditions => ["status =?", "checkin"])
     booking_details = []
 
     available_bookings.each do |booking_status|
@@ -95,7 +95,7 @@ class Booking < ActiveRecord::Base
 
   def self.check_in_date(booking_id)
     booking_status = BookingStatus.find(:last, :conditions => ["booking_id =? AND status =?",
-        booking_id, "active"])
+        booking_id, "checkin"])
     return booking_status.status_date
   end
 

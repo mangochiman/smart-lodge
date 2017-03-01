@@ -15,8 +15,8 @@ class Room < ActiveRecord::Base
   end
 
   def self.occupied_rooms
-    rooms = RoomBooking.find(:all, :joins => "INNER JOIN bookings ON room_bookings.booking_id = bookings.booking_id",
-      :conditions => ["bookings.status = ?", 'active']
+    rooms = RoomBooking.find(:all, :joins => "INNER JOIN booking_statuses ON room_bookings.booking_id = booking_statuses.booking_id",
+      :conditions => ["booking_statuses.status = ?", 'checkin'], :group => "room_bookings.room_id"
     ).collect{|rb|rb.room}
     return rooms
   end
