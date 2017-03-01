@@ -99,4 +99,16 @@ class Booking < ActiveRecord::Base
     return booking_status.status_date
   end
 
+  def self.checkout_client(booking_id)
+    booking_status = BookingStatus.new
+    booking_status.booking_id = booking_id
+    booking_status.status = 'checkout'
+    booking_status.status_date = Date.today
+    if (booking_status.save)
+      return true
+    else
+      return false
+    end
+  end
+  
 end

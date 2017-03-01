@@ -25,6 +25,16 @@ class PagesController < ApplicationController
     @check_in_date = Booking.check_in_date(params[:booking_id])
     @total_days_spent = (Date.today - @check_in_date.to_date).to_i
   end
+
+  def process_checkout
+    if (Booking.checkout_client(params[:booking_id]))
+      flash[:notice] = "Checkout is successful"
+      redirect_to("/new_invoice?booking_id=#{params[:booking_id]}")
+    else
+      flash[:error] = "Failed to checkout the client"
+      redirect_to("/check_out_client?booking_id=#{params[:booking_id]}")
+    end
+  end
   
   def invoices_menu
     @page_title = "Invoices"

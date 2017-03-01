@@ -41,12 +41,30 @@
       </a>
     </div>
 
-    <a href="#" class="btn btn-default btn-block btn-primary">Confirm Checkout</a>
+    <a href="#" class="btn btn-default btn-block btn-primary" data-toggle="modal" data-target="#checkoutModal">Confirm Checkout</a>
   </div>
 
 </div>
 
 
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="H2">Checkout Client</h4>
+      </div>
+      <div class="modal-body">
+        This will checkout the selected client. Are you sure?
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Am not sure</button>
+        <button onclick="checkoutClient();" type="button" class="btn btn-primary">Yes am sure</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -54,5 +72,10 @@
     jQuery('.guests').addClass('active');
     jQuery('#guest-nav').addClass('in');
   }, 150);
+  var booking_id = '<%= params[:booking_id] %>';
 
+  function checkoutClient(){
+    window.location = "/process_checkout?booking_id=" + booking_id;
+  }
+  
 </script>
