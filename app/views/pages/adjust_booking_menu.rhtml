@@ -1,0 +1,21 @@
+<form class="form-horizontal" action="/pages/update_booking" method="POST">
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="reservation">Reservation dates</label>
+
+    <div class="col-lg-4">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+        <input name="reservation_dates" id="reservation" value="<%= @booking_dates %>" class="form-control" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-lg-4" for="reservation">&nbsp;</label>
+    <input type="hidden" value="<%= params[:booking_id] %>" name="booking_id"></input>
+    <div class="col-lg-4">
+      <button type="submit" class="btn btn-default">Submit Button</button>
+    </div>
+  </div>
+
+</form>

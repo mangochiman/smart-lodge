@@ -66,8 +66,8 @@
                 </div>
                 <p style="padding-left: 15px;">
                   <button class="btn btn-danger"><i class="icon-remove icon-white"></i> Cancel Booking</button>
-                  <button class="btn btn-primary"><i class="icon-pencil icon-white"></i> Adjust Booking</button>
-                  <button class="btn btn-warning"><i class="icon-print icon-white"></i> Print Invoice</button>
+                  <button class="btn btn-primary" onclick="adjustClientBooking('<%= booking.booking_id %>')"><i class="icon-pencil icon-white"></i> Adjust Booking</button>
+                  <button class="btn btn-warning" onclick="viewInvoice('<%= booking.booking_id %>')"><i class="icon-eye-open icon-white"></i> Create/View Invoice</button>
                 </p>
               </div>
 
@@ -153,8 +153,8 @@
                   <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type %></span>
                 </div>
                 <p style="padding-left: 15px;">
-                  <button class="btn btn-danger"><i class="icon-remove icon-white"></i> Cancel Checkout</button>
-                  <button class="btn btn-warning" onclick="viewInvoice('<%= booking.booking_id %>')"><i class="icon-eye-open icon-white"></i> View Invoice</button>
+                  <button class="btn btn-danger" onclick="showCancelCheckoutConfirmation(<%= booking_status.booking_status_id %>)"><i class="icon-remove icon-white"></i> Cancel Checkout</button>
+                  <button class="btn btn-warning" onclick="viewInvoice('<%= booking.booking_id %>')"><i class="icon-eye-open icon-white"></i> Create/View Invoice</button>
                 </p>
               </div>
 
@@ -174,7 +174,24 @@
 
 
 
+<div class="modal fade" id="cancelCheckoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="H2">Delete Item</h4>
+      </div>
+      <div class="modal-body">
+        This will cancel the checkout of the selected client. Are you sure?
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Not Sure</button>
+        <button onclick="cancelClientCheckout();" type="button" class="btn btn-primary">Am sure</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -184,6 +201,34 @@
 
   function viewInvoice(bookingID){
     window.location = "/view_invoice?booking_id=" + bookingID;
+  }
+
+  function cancelClientCheckout(){
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/cancel_client_checkout";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = selectedBookingStatusID;
+    input.name = "booking_status_id";
+    form.appendChild(input);
+
+    form.submit();
+  }
+
+  var selectedBookingStatusID;
+
+  function showCancelCheckoutConfirmation(booking_status_id){
+    selectedBookingStatusID = booking_status_id;
+    jQuery('#cancelCheckoutModal').modal('show');
+  }
+
+  function adjustClientBooking(booking_id){
+    window.location = "/adjust_booking_menu?booking_id=" + booking_id;
   }
 
 </script>

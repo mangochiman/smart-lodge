@@ -35,6 +35,53 @@ class PagesController < ApplicationController
       redirect_to("/check_out_client?booking_id=#{params[:booking_id]}")
     end
   end
+
+  def cancel_client_checkout
+    booking_status = BookingStatus.find(params[:booking_status_id])
+    booking_status.voided = 1
+    booking_status.save
+    flash[:notice] = "Checkout successfully voided"
+    redirect_to("/guests") and return
+  end
+
+  def adjust_booking_menu
+    @booking = Booking.find(params[:booking_id])
+    @room = Booking.room(params[:booking_id])
+    @person = @booking.person
+    start_date = @booking.start_date.to_date.strftime("%m/%d/%Y") rescue ""
+    end_date = @booking.end_date.to_date.strftime("%m/%d/%Y") rescue ""
+
+    @booking_dates = ""
+    unless start_date.blank?
+      @booking_dates = "#{start_date}"
+      unless end_date.blank?
+        @booking_dates = "#{start_date} - #{end_date}"
+      end
+    end
+    
+    @page_title = "Adjusting booking For  #{@person.first_name} #{@person.last_name} - Room #: <a>#{@room.number}</a>, Room Name: <a>#{@room.name}</a>"
+
+  end
+
+  def update_booking
+    booking = Booking.find(params[:booking_id])
+    reservation_dates = params[:reservation_dates].split("-")
+    start_date = reservation_dates[0].to_date
+    end_date = reservation_dates[1].to_date
+    
+    if booking.update_attributes({
+          :start_date => start_date,
+          :end_date => end_date
+        }){
+      }
+      Booking.update_check_in_date(params[:booking_id], start_date)
+      flash[:notice] = "You have successfully updated the booking"
+      redirect_to("/guests")
+    else
+      flash[:error] = "Failed to do the update"
+      redirect_to("/adjust_booking_menu?booking_id=#{params[:booking_id]}")
+    end
+  end
   
   def invoices_menu
     @page_title = "Invoices"

@@ -110,5 +110,14 @@ class Booking < ActiveRecord::Base
       return false
     end
   end
+
+  def self.update_check_in_date(booking_id, start_date)
+    booking_status = Booking.find(booking_id).booking_statuses.find(:last,
+      :conditions => ["status =?", "checkin"])
+    booking_status.status_date = start_date
+    booking_status.save
+    
+    return booking_status
+  end
   
 end
