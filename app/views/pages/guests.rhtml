@@ -54,10 +54,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#<%=  booking.booking_id %>"><%= person_name %></a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#check_in_<%=  booking.booking_id %>"><%= person_name %></a>
                 </h4>
               </div>
-              <div id="<%=  booking.booking_id %>" class="panel-collapse collapse <%= in_class %>">
+              <div id="check_in_<%=  booking.booking_id %>" class="panel-collapse collapse <%= in_class %>">
                 <div class="panel-body">
                   <span><b>Check In Date:</b> <%= booking.start_date.to_date.strftime("%d/%b/%Y") %></span>, &nbsp;
                   <span><b>Expected Check Out Date:</b> <%= booking.end_date.to_date.strftime("%d/%b/%Y") %></span><br />
@@ -142,7 +142,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#checkouts" href="check_out_#<%= booking.booking_id %>"><%= person_name %></a>
+                  <a data-toggle="collapse" data-parent="#checkouts" href="#check_out_<%= booking.booking_id %>"><%= person_name %></a>
                 </h4>
               </div>
               <div id="check_out_<%= booking.booking_id %>" class="panel-collapse collapse <%= in_class %>">
@@ -153,9 +153,8 @@
                   <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type %></span>
                 </div>
                 <p style="padding-left: 15px;">
-                  <button class="btn btn-danger"><i class="icon-remove icon-white"></i> Cancel Booking</button>
-                  <button class="btn btn-primary"><i class="icon-pencil icon-white"></i> Adjust Booking</button>
-                  <button class="btn btn-warning"><i class="icon-print icon-white"></i> Print Invoice</button>
+                  <button class="btn btn-danger"><i class="icon-remove icon-white"></i> Cancel Checkout</button>
+                  <button class="btn btn-warning" onclick="viewInvoice('<%= booking.booking_id %>')"><i class="icon-eye-open icon-white"></i> View Invoice</button>
                 </p>
               </div>
 
@@ -168,9 +167,12 @@
         </div>
       </div>
     </div>
+
   </div>
 
 </div>
+
+
 
 
 
@@ -179,5 +181,9 @@
   window.setTimeout(function(){
     jQuery('.dashboard').addClass('active');
   }, 150);
+
+  function viewInvoice(bookingID){
+    window.location = "/view_invoice?booking_id=" + bookingID;
+  }
 
 </script>
