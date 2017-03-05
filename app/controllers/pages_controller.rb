@@ -44,6 +44,16 @@ class PagesController < ApplicationController
     redirect_to("/guests") and return
   end
 
+  def cancel_client_booking
+    void_booking = Booking.void(params[:booking_id])
+    if void_booking
+      flash[:notice] = "Booking successfully voided"
+    else
+      flash[:notice] = "Failed to void booking"
+    end
+    redirect_to("/guests") and return
+  end
+  
   def adjust_booking_menu
     @booking = Booking.find(params[:booking_id])
     @room = Booking.room(params[:booking_id])

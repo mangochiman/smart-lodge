@@ -119,5 +119,31 @@ class Booking < ActiveRecord::Base
     
     return booking_status
   end
+
+  def self.void(booking_id)
+    booking = Booking.find(booking_id)
+
+    ActiveRecord::Base.transaction do
+
+      booking.booking_statuses.each do |booking_status|
+        booking_status.voided = 1
+        booking_status.save
+      end
+
+      room_booking = booking.room_booking
+      room_booking.voided = 1
+      room_booking.save
+
+      booking.billable_items.each do |billable_item|
+        billable_item.voided = 1
+        billable_item.save
+      end
+
+      booking.voided = 1
+      booking.save
+    end
+    
+    return true
+  end
   
 end
