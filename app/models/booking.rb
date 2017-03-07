@@ -9,8 +9,11 @@ class Booking < ActiveRecord::Base
   default_scope :conditions => "#{self.table_name}.voided = 0"
 
   def self.recent_bookings
+    checkout_booking_ids = self.recent_checkouts.collect{|k, v|v.booking_id}
+    checkout_booking_ids = [0] if checkout_booking_ids.blank?
     booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
-      :conditions => ["status =?", "checkin"])
+      :conditions => ["status =? AND booking_id NOT IN (?)", "checkin", checkout_booking_ids])
+
     booking_details = []
     booking_statuses.each do |booking_status|
       person = booking_status.booking.person

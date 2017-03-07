@@ -194,5 +194,10 @@ class PagesController < ApplicationController
     
     redirect_to("/check_in_menu")
   end
+
+  def view_customers_menu
+    @page_title = "View Customers"
+    @people = Person.all
+  end
   
 end
