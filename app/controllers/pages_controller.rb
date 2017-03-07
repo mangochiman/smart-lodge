@@ -199,5 +199,20 @@ class PagesController < ApplicationController
     @page_title = "View Customers"
     @people = Person.all
   end
+
+  def edit_personal_details
+    @person = Person.find(params[:person_id])
+    @page_title = "Editing details of <a>#{@person.first_name} #{@person.last_name}</a>"
+  end
+
+  def update_personal_details
+    person = Person.find(params[:person_id])
+    if person.update_attributes(params[:person])
+      flash[:notice] = "You have successfully updated the details"
+    else
+      flash[:error] = "Failed to update the details"
+    end
+    redirect_to("/view_customers_menu")
+  end
   
 end

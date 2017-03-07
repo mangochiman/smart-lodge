@@ -56,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.view_customers_menu  '/view_customers_menu',  :controller => 'pages', :action => 'view_customers_menu'
+  map.edit_personal_details  '/edit_personal_details',  :controller => 'pages', :action => 'edit_personal_details'
   #map.search_results  '/search_results',  :controller => 'pages', :action => 'search_results'
   #########GUESTS END########################################################################
   
