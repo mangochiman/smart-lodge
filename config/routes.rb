@@ -58,6 +58,10 @@ ActionController::Routing::Routes.draw do |map|
   map.view_customers_menu  '/view_customers_menu',  :controller => 'pages', :action => 'view_customers_menu'
   map.edit_personal_details  '/edit_personal_details',  :controller => 'pages', :action => 'edit_personal_details'
   map.personal_booking_details  '/personal_booking_details',  :controller => 'pages', :action => 'personal_booking_details'
+  map.report_menu  '/report_menu',  :controller => 'pages', :action => 'report_menu'
+  map.bookings_by_gender_report_menu  '/bookings_by_gender_report_menu',  :controller => 'pages', :action => 'bookings_by_gender_report_menu'
+  map.bookings_by_custom_date_report_menu  '/bookings_by_custom_date_report_menu',  :controller => 'pages', :action => 'bookings_by_custom_date_report_menu'
+  map.bookings_by_room_report_menu  '/bookings_by_room_report_menu',  :controller => 'pages', :action => 'bookings_by_room_report_menu'
   #map.search_results  '/search_results',  :controller => 'pages', :action => 'search_results'
   #########GUESTS END########################################################################
   

@@ -221,4 +221,19 @@ class PagesController < ApplicationController
     @booking_history = Booking.history(params[:person_id])
   end
 
+  def report_menu
+    @page_title = "Reports"
+  end
+
+  def bookings_by_gender_report_menu
+    @page_title = "Bookings by gender report"
+  end
+
+  def bookings_by_custom_date_report_menu
+    @page_title = "Bookings by custom date report"
+  end
+
+  def bookings_by_room_report_menu
+    @page_title = "Bookings by room report"
+  end
 end
