@@ -56,7 +56,9 @@ class Booking < ActiveRecord::Base
   end
 
   def self.checkout_date(booking_id)
-    return "&nbsp;"
+    booking_status = BookingStatus.find(:last, :conditions => ["booking_id =? AND status =?",
+        booking_id, "checkout"])
+    return booking_status.status_date
   end
 
   def self.active_check_ins
@@ -148,5 +150,25 @@ class Booking < ActiveRecord::Base
     
     return true
   end
-  
+
+  def self.history(person_id)
+    booking_history = {}
+    person = Person.find(person_id)
+    bookings = person.bookings
+    
+    bookings.each do |booking|
+      booking_id = booking.booking_id
+      checkin_date = self.check_in_date(booking_id) rescue ''
+      checkout_date = self.checkout_date(booking_id) rescue ''
+      room = self.room(booking_id).name rescue ''
+      
+      booking_history[booking_id] = {
+        :check_in_date => checkin_date,
+        :check_out_date => checkout_date,
+        :room => room
+        }
+    end
+    
+    return booking_history
+  end
 end

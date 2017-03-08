@@ -1,0 +1,35 @@
+
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Check-in Date</th>
+          <th>Checkout Date</th>
+          <th>Room</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% count = 0 %>
+        <% @booking_history.each do |booking_id, record| %>
+          <tr>
+            <td><%= count = count + 1 %></td>
+            <td><%= record[:check_in_date].to_date.strftime('%d/%b/%Y') %></td>
+            <td><%= record[:check_out_date].to_date.strftime('%d/%b/%Y') rescue '' %></td>
+            <td><%= record[:room] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.guests').addClass('active');
+    jQuery('#guest-nav').addClass('in');
+  }, 150);
+
+</script>

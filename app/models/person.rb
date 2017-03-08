@@ -3,6 +3,7 @@ class Person < ActiveRecord::Base
   set_primary_key :person_id
   default_scope :conditions => "voided = 0"
 
+  has_many :bookings, :primary_key => "person_id", :foreign_key => "person_id"
   def self.search(params)
     first_name = params[:first_name]
     last_name = params[:last_name]

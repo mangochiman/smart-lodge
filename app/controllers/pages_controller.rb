@@ -214,5 +214,11 @@ class PagesController < ApplicationController
     end
     redirect_to("/view_customers_menu")
   end
-  
+
+  def personal_booking_details
+    @person = Person.find(params[:person_id])
+    @page_title = "Booking details of <a>#{@person.first_name} #{@person.last_name}</a>"
+    @booking_history = Booking.history(params[:person_id])
+  end
+
 end
