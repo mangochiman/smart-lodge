@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
   set_table_name :people
   set_primary_key :person_id
-  default_scope :conditions => "voided = 0"
+  default_scope :conditions => "#{self.table_name}.voided = 0"
 
   has_many :bookings, :primary_key => "person_id", :foreign_key => "person_id"
   def self.search(params)

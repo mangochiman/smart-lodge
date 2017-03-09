@@ -227,6 +227,16 @@ class PagesController < ApplicationController
 
   def bookings_by_gender_report_menu
     @page_title = "Bookings by gender report"
+    @people = Person.all
+    @people = [] if params[:gender].blank?
+
+    unless params[:gender].blank?
+      gender = params[:gender]
+      gender = ["Male", "Female"] if params[:gender] == 'ALL'
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id",
+        :conditions => ["gender IN (?)", gender],
+        :group => "booking_id")
+    end
   end
 
   def bookings_by_custom_date_report_menu
