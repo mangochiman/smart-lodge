@@ -27,5 +27,10 @@ module ApplicationHelper
     available_users = User.find(:all)
     return available_users
   end
+
+  def available_rooms
+    rooms = Room.find(:all)
+    return rooms
+  end
   
 end

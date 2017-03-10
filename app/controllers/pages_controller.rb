@@ -241,9 +241,28 @@ class PagesController < ApplicationController
 
   def bookings_by_custom_date_report_menu
     @page_title = "Bookings by custom date report"
+    @today = Date.today.strftime("%m/%d/%Y") + ' - ' + Date.today.strftime("%m/%d/%Y")
+    @people = [] if params[:dates].blank?
+    
+    unless params[:dates].blank?
+      start_date = params[:dates].split("-")[0].to_date
+      end_date = params[:dates].split("-")[1].to_date
+      
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id INNER JOIN booking_statuses ON bookings.booking_id = booking_statuses.booking_id",
+        :conditions => ["DATE(status_date) >= ? AND DATE(status_date) <= ? AND status = ?", start_date, end_date, 'checkin'],
+        :group => "bookings.booking_id")
+    end
   end
 
   def bookings_by_room_report_menu
     @page_title = "Bookings by room report"
+    @people = [] if params[:room_id].blank?
+
+    unless params[:room_id].blank?
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id INNER JOIN room_bookings ON bookings.booking_id = room_bookings.booking_id",
+        :conditions => ["room_id =?", params[:room_id]],
+        :group => "bookings.booking_id")
+    end
   end
+  
 end
