@@ -6,6 +6,7 @@ class Booking < ActiveRecord::Base
   belongs_to :room_booking, :primary_key => "booking_id", :foreign_key => "booking_id"
   has_many :booking_statuses, :primary_key => "booking_id", :foreign_key => "booking_id"
   has_many :billable_items, :primary_key => "booking_id", :foreign_key => "booking_id"
+  has_many :booking_payments, :primary_key => "booking_id", :foreign_key => "booking_id"
   default_scope :conditions => "#{self.table_name}.voided = 0"
 
   def self.recent_bookings

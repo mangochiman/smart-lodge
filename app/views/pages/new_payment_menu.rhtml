@@ -1,0 +1,45 @@
+
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+          <th>Room</th>
+          <th style="width: 140px;">Check-in Date</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @active_check_ins.each do |person, booking_details| %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+            <td><%= Booking.room(booking_details.booking_id).name %></td>
+            <td><%= Booking.check_in_date(booking_details.booking_id).to_date.strftime("%d/%b/%Y") %></td>
+            <td><button onclick="makePayment('<%= booking_details.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-money icon-white"></i> Make Payment</button></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.payments').addClass('active');
+    jQuery('#payment-nav').addClass('in');
+  }, 150);
+
+  function makePayment(bookingID){
+    window.location = "/make_payment?booking_id=" + bookingID;
+  }
+  
+</script>

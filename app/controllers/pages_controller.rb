@@ -139,9 +139,37 @@ class PagesController < ApplicationController
   end
   
   def new_payment_menu
-    @page_title = "New payments"
+    @page_title = "New payments <span class='label label-info'>Only possible for customers that are not checked out</span>"
+    @active_check_ins = Booking.active_check_ins
   end
 
+  def make_payment
+    @room = Booking.room(params[:booking_id])
+    @person = Booking.find(params[:booking_id]).person
+    @check_in_date = Booking.check_in_date(params[:booking_id])
+    @page_title = "Payment For  #{@person.first_name} #{@person.last_name} - Room #: <a>#{@room.number}</a>, Room Name: <a>#{@room.name}</a>, Checkin Date: <a>#{@check_in_date.to_date.strftime('%d/%b/%Y')}</a>"
+    @booking = Booking.find(params[:booking_id])
+    @billable_items = @booking.billable_items
+    
+    @amount_required = @booking.billable_items.inject(0){|sum,x| sum + (x.price * x.quantity) } #fancy way of doing sum
+    @total_days_spent = (Date.today - @check_in_date.to_date).to_i
+  end
+
+  def process_payment
+    booking_payment = BookingPayment.new
+    booking_payment.booking_id = params[:booking_id]
+    booking_payment.mode_of_payment = params[:mode_of_payment]
+    booking_payment.amount_paid = params[:amount_paid]
+    if booking_payment.save
+      flash[:notice] = "Payment successfully saved"
+      redirect_to("/view_payments_menu") and return 
+    else
+      flash[:error] = "Failed to save the payment"
+      redirect_to("/make_payment?booking_id=#{params[:booking_id]}") and return
+    end
+
+  end
+  
   def view_payments_menu
     @page_title = "View Payments"
   end
