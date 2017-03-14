@@ -167,9 +167,28 @@ class Booking < ActiveRecord::Base
         :check_in_date => checkin_date,
         :check_out_date => checkout_date,
         :room => room
-        }
+      }
     end
     
     return booking_history
   end
+
+  def self.recent_payments
+    bookings = Booking.find(:all, :joins => "INNER JOIN booking_payments ON bookings.booking_id = booking_payments.booking_id",
+      :conditions => ["booking_payments.voided=0 AND bookings.voided=0"], :group => "bookings.booking_id")
+    return bookings
+  end
+
+  def self.mode_of_payment(booking_id)
+    booking_payment = BookingPayment.find(:last, :conditions => ["booking_id =?", booking_id])
+    return "" if booking_payment.blank?
+    return booking_payment.mode_of_payment
+  end
+
+  def self.amount_paid(booking_id)
+    booking = Booking.find(booking_id)
+    total_amount_paid = booking.booking_payments.inject(0){|sum, booking_payment| sum + booking_payment.amount_paid }
+    return total_amount_paid
+  end
+
 end

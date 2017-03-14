@@ -10,6 +10,7 @@
           <th>Phone #</th>
           <th>Room</th>
           <th style="width: 140px;">Check-in Date</th>
+          <th>Amount Paid</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
             <td class="center"><%= person.phone_number %></td>
             <td><%= Booking.room(booking_details.booking_id).name %></td>
             <td><%= Booking.check_in_date(booking_details.booking_id).to_date.strftime("%d/%b/%Y") %></td>
+            <td><%= Booking.amount_paid(booking_details.booking_id) %></td>
             <td><button onclick="makePayment('<%= booking_details.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-money icon-white"></i> Make Payment</button></td>
           </tr>
         <% end %>

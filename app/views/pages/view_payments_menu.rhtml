@@ -1,5 +1,59 @@
 
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+          <th>Room</th>
+          <th style="width: 140px;">Check-in Date</th>
+          <th>Mode Of Payment</th>
+          <th>Amount Paid</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bookings.each do |booking| %>
+          <% person = booking.person %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+            <td><%= Booking.room(booking.booking_id).name %></td>
+            <td><%= Booking.check_in_date(booking.booking_id).to_date.strftime("%d/%b/%Y") %></td>
+            <td><%= Booking.mode_of_payment(booking.booking_id) %></td>
+            <td><%= Booking.amount_paid(booking.booking_id) %></td>
+            <td><button onclick="showDeletePaymentModal('<%= booking.booking_id %>')" class="btn btn-danger btn-block"><i class="icon-remove icon-white"></i> Delete Payment</button></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
+</div>
+
+<div class="modal fade" id="deletePaymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="H2">Delete Payment</h4>
+      </div>
+      <div class="modal-body">
+        This will delete the selected payment. Are you sure?
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Am not sure</button>
+        <button onclick="deletePayment();" type="button" class="btn btn-primary">Yes am sure</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -7,5 +61,29 @@
     jQuery('.payments').addClass('active');
     jQuery('#payment-nav').addClass('in');
   }, 150);
+
+  var selectedBookingID;
+
+  function showDeletePaymentModal(bookingID){
+    selectedBookingID = bookingID;
+    jQuery('#deletePaymentModal').modal('show');
+  }
+
+  function deletePayment(){
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/pages/delete_payment";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = selectedBookingID;
+    input.name = "booking_id";
+    form.appendChild(input);
+
+    form.submit();
+  }
 
 </script>

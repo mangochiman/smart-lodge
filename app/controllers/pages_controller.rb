@@ -169,9 +169,20 @@ class PagesController < ApplicationController
     end
 
   end
+
+  def delete_payment
+    booking = Booking.find(params[:booking_id])
+    booking.booking_payments.each do |booking_payment|
+      booking_payment.voided = 1
+      booking_payment.save
+    end
+    flash[:notice] = "Operation successful"
+    redirect_to("/view_payments_menu")
+  end
   
   def view_payments_menu
     @page_title = "View Payments"
+    @bookings = Booking.recent_payments
   end
 
   def view_all_check_ins_menu
