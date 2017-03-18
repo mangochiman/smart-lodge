@@ -303,5 +303,8 @@ class PagesController < ApplicationController
         :group => "bookings.booking_id")
     end
   end
-  
+
+  def search_rooms
+    @page_title = "Search Rooms"
+  end
 end

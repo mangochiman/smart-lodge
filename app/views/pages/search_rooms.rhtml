@@ -1,0 +1,77 @@
+<div>
+  <div style="padding-right: 20px;" class="pull-right">
+    <table>
+      <form action="/search_rooms">
+        <tr>
+          <td>Select Room</td>
+          <td>
+            <select style="min-width: 200px;" data-placeholder="Search or select room" name="room_id" class="form-control chzn-select" tabindex="7">
+              <option></option>
+              <% available_rooms.each do |room| %>
+                <option value="<%= room.room_id %>"><%= room.name %></option>
+              <% end %>
+            </select>
+          </td>
+          <td>
+            <button type="submit"class="btn btn-primary"><i class="icon-search icon-white"></i> Search</button>
+          </td>
+        </tr>
+      </form>
+    </table>
+  </div>
+  <br />
+
+  <div class="panel " style="padding-left: 10px;">
+    <div class="panel-heading">
+      <b>Search Results for </b><span class="label label-success" style="font-size: 12pt;">Room One</span>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Room #</th>
+              <th>Check-in Date</th>
+              <th>Checkout-Date</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td><button class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View Guest Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .chosen-container-single .chosen-single{
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    vertical-align: middle;
+    width: 100%;
+  }
+</style>
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.search-rooms').addClass('active');
+  }, 150);
+
+
+</script>
