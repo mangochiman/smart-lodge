@@ -304,6 +304,14 @@ class PagesController < ApplicationController
     end
   end
 
+  def checkout_report_menu
+    @page_title = "Checkout report"
+  end
+
+  def payments_report_menu
+    @page_title = "Payments report"
+  end
+  
   def search_rooms
     @page_title = "Search Rooms"
     @search_results = []
@@ -312,8 +320,6 @@ class PagesController < ApplicationController
       @room_status = RoomBooking.room_status(params[:room_id])
       @search_results = RoomBooking.search(params[:room_id])
     end
-
-    
   end
 
 end

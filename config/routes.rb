@@ -64,6 +64,8 @@ ActionController::Routing::Routes.draw do |map|
   map.bookings_by_room_report_menu  '/bookings_by_room_report_menu',  :controller => 'pages', :action => 'bookings_by_room_report_menu'
   map.make_payment  '/make_payment',  :controller => 'pages', :action => 'make_payment'
   map.search_rooms  '/search_rooms',  :controller => 'pages', :action => 'search_rooms'
+  map.checkout_report_menu  '/checkout_report_menu',  :controller => 'pages', :action => 'checkout_report_menu'
+  map.payments_report_menu  '/payments_report_menu',  :controller => 'pages', :action => 'payments_report_menu'
   #map.search_results  '/search_results',  :controller => 'pages', :action => 'search_results'
   #########GUESTS END########################################################################
   
