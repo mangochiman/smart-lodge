@@ -28,4 +28,20 @@ class RoomBooking < ActiveRecord::Base
     return data
   end
 
+  def self.room_status(room_id)
+    room = Room.find(room_id)
+    room_bookings = RoomBooking.find(:all, :conditions => ["room_id =?", room_id])
+    return "available" if room_bookings.blank?
+    
+    room_bookings.each do |room_booking|
+      booking_id = room_booking.booking_id
+      checkout_status = BookingStatus.find(:last, :conditions => ["booking_id =? AND status =?", booking_id, "checkout"])
+      if checkout_status.blank?
+        return "occupied"
+        break
+      end
+    end
+
+    return "available"
+  end
 end

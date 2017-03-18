@@ -309,6 +309,7 @@ class PagesController < ApplicationController
     @search_results = []
     unless params[:room_id].blank?
       @room_name = Room.find(params[:room_id]).name
+      @room_status = RoomBooking.room_status(params[:room_id])
       @search_results = RoomBooking.search(params[:room_id])
     end
 

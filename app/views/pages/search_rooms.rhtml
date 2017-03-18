@@ -23,7 +23,8 @@
   <% unless params[:room_id].blank? %>
     <div class="panel " style="padding-left: 10px;">
       <div class="panel-heading">
-        <b>Search Results for </b><span class="label label-success" style="font-size: 12pt;"><%= @room_name %></span>
+        <b>Search Results for </b><a href="#" style="font-size: 16pt;"><%= @room_name %></a><br />
+        <b>Room Status</b>: <a href="#" style="font-size: 16pt;"><%= @room_status %></a>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
