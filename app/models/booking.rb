@@ -191,4 +191,12 @@ class Booking < ActiveRecord::Base
     return total_amount_paid
   end
 
+  def self.customer_details(booking_id)
+    data = ""
+    booking = Booking.find(booking_id)
+    person = booking.person
+    data = "Names: <a href='#'>#{person.first_name} #{person.last_name}</a>, Phone #: <a href='#'>#{person.phone_number}</a>, E-mail #: <a href='#'>#{person.email}</a>"
+    return data
+  end
+  
 end

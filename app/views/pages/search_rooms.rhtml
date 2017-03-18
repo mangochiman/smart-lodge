@@ -19,35 +19,38 @@
       </form>
     </table>
   </div>
-  <br />
-
-  <div class="panel " style="padding-left: 10px;">
-    <div class="panel-heading">
-      <b>Search Results for </b><span class="label label-success" style="font-size: 12pt;">Room One</span>
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Room #</th>
-              <th>Check-in Date</th>
-              <th>Checkout-Date</th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td><button class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View Guest Details</button></td>
-            </tr>
-          </tbody>
-        </table>
+  <br /><br />
+  <% unless params[:room_id].blank? %>
+    <div class="panel " style="padding-left: 10px;">
+      <div class="panel-heading">
+        <b>Search Results for </b><span class="label label-success" style="font-size: 12pt;"><%= @room_name %></span>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Room #</th>
+                <th>Check-in Date</th>
+                <th>Checkout-Date</th>
+                <th>Customer Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @search_results.each do |count, result| %>
+              <tr>
+                <td><%= result[:room_number] %></td>
+                <td><%= result[:check_in_date].to_date.strftime("%d/%b/%Y") rescue result[:check_in_date] %></td>
+                <td><%= result[:check_out_date].to_date.strftime("%d/%b/%Y") rescue result[:check_out_date] %></td>
+                <td><%= result[:customer_details] %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
 <style type="text/css">
   .chosen-container-single .chosen-single{
