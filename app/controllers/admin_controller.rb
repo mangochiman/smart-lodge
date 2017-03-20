@@ -349,6 +349,26 @@ class AdminController < ApplicationController
     @page_title = "My Profile"
     @user = User.find(session[:user].user_id)
   end
+
+  def new_taxes_menu
+    @page_title = "New Tax"
+  end
+
+  def edit_taxes_menu
+    @page_title = "Editing Taxes"
+  end
+
+  def edit_tax
+
+  end
+
+  def view_taxes_menu
+    @page_title = "View Taxes"
+  end
+
+  def remove_taxes_menu
+    @page_title = "Remove Taxes"
+  end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 end

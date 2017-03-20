@@ -25,6 +25,11 @@ ActionController::Routing::Routes.draw do |map|
   map.view_rates_menu  '/view_rates_menu',  :controller => 'admin', :action => 'view_rates_menu'
   map.remove_rates_menu  '/remove_rates_menu',  :controller => 'admin', :action => 'remove_rates_menu'
 
+  map.new_taxes_menu  '/new_taxes_menu',  :controller => 'admin', :action => 'new_taxes_menu'
+  map.edit_taxes_menu  '/edit_taxes_menu',  :controller => 'admin', :action => 'edit_taxes_menu'
+  map.edit_tax '/edit_tax/:tax_id', :controller => 'admin', :action => 'edit_tax'
+  map.view_taxes_menu '/view_taxes_menu/', :controller => 'admin', :action => 'view_taxes_menu'
+  map.remove_taxes_menu  '/remove_taxes_menu',  :controller => 'admin', :action => 'remove_taxes_menu'
 
   map.new_rooms_menu  '/new_users_menu',  :controller => 'admin', :action => 'new_users_menu'
   map.edit_rooms_menu  '/edit_users_menu',  :controller => 'admin', :action => 'edit_users_menu'
