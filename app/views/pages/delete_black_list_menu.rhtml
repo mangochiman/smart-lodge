@@ -21,7 +21,7 @@
             <td class="center"><%= person.phone_number %></td>
             <td><%= black_list_date.to_date.strftime("%d-%b-%Y") rescue black_list_date %></td>
             <td>
-              <button class="btn btn-warning btn-block"><i class="icon-remove icon-white"></i> Cancel Record</button>
+              <button class="btn btn-warning btn-block" onclick="cancelBlackListConfirm('<%= person.person_id %>')"><i class="icon-remove icon-white"></i> Cancel Record</button>
             </td>
           </tr>
         <% end %>
@@ -31,9 +31,55 @@
 
 </div>
 
-<script type="text/javascript">
+<!-- Modal -->
+<div class="modal fade" id="cancelBlacklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cancel Black List</h4>
+      </div>
+      <div class="modal-body">
+        This will remove the selected record from blacklist. Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No, Am Not Sure</button>
+        <button onclick="cancelBlackListRecord();" type="button" class="btn btn-primary">Yes, Am Sure</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-  window.setTimeout(function(){
+<script type="text/javascript">
+ var selectedPersonID;
+
+  function cancelBlackListConfirm(personID){
+    selectedPersonID = personID;
+    jQuery('#cancelBlacklistModal').modal('show');
+  }
+
+  function cancelBlackListRecord(){
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/pages/cancel_black_listed_client";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = selectedPersonID;
+    input.name = "person_id";
+    form.appendChild(input);
+
+    form.submit();
+
+  }
+
+ window.setTimeout(function(){
     jQuery('.black-list').addClass('active');
     jQuery('#black-list-nav').addClass('in');
   }, 150);

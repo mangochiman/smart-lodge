@@ -352,6 +352,18 @@ class PagesController < ApplicationController
     
   end
 
+  def cancel_black_listed_client
+    person = Person.find(params[:person_id])
+    person_records = BlackList.find(:all, :conditions => ["person_id =?", params[:person_id]])
+    person_records.each do |person_record|
+      person_record.voided = 1
+      person_record.save
+    end
+
+    flash[:notice] = "#{person.first_name} #{person.last_name} has been removed from black list records"
+    redirect_to("/delete_black_list_menu") and return
+  end
+  
   def view_black_list_menu
     @page_title = "View Blacklist Records"
     @people = Person.black_listed_records
