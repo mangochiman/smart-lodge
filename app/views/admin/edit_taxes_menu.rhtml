@@ -1,4 +1,38 @@
-
+<div class="row">
+  <div class="col-lg-11" style="padding-left: 100px;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tax Name</th>
+                <th>Tax(%)</th>
+                <th>Date Created</th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% count = 0 %>
+              <% @taxes.each do |tax| %>
+                <tr>
+                  <td><%= count = count + 1 %></td>
+                  <td><%= tax.name %></td>
+                  <td><%= tax.value %></td>
+                  <td><%= tax.created_at.strftime("%d-%b-%Y") %></td>
+                  <td>
+                    <button onclick="editTax('<%= tax.tax_id %>')" class="btn btn-block btn-primary"><i class="icon-pencil"></i> Edit</button>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -8,4 +42,9 @@
     jQuery('.taxes').addClass('active');
     jQuery('#taxes-nav').addClass('in');
   }, 150);
+
+  function editTax(taxID){
+    window.location = '/edit_tax/' + taxID;
+  }
+  
 </script>

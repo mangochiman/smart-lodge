@@ -1,0 +1,32 @@
+
+<div id="div-1" class="accordion-body collapse in body">
+  <form class="form-horizontal" action="/admin/update_tax" method="POST">
+
+    <div class="form-group">
+      <label for="tax_name" class="control-label col-lg-4">Tax Name</label>
+      <div class="col-lg-7">
+        <input required type="text" value="<%= @tax.name %>" name="tax_name" id="tax_name" placeholder="Tax Name" class="form-control" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="room_name" class="control-label col-lg-4">Percent</label>
+      <div class="col-lg-7">
+        <input required type="text" value="<%= @tax.value %>" name="tax_percent" id="percent" placeholder="Tax Percent" class="form-control" />
+      </div>
+    </div>
+
+    <div style="text-align:center;" class="form-actions no-margin-bottom">
+      <input type="hidden" value="<%= params[:tax_id] %>" name="tax_id"></input>
+      <input type="submit" class="btn btn-success" value="Update Record"/>
+    </div><br />
+  </form>
+</div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.taxes').addClass('active');
+    jQuery('#taxes-nav').addClass('in');
+  }, 150);
+</script>

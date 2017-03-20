@@ -354,20 +354,64 @@ class AdminController < ApplicationController
     @page_title = "New Tax"
   end
 
+  def create_tax
+    tax = Tax.new
+    tax.name = params[:tax_name]
+    tax.value = params[:tax_percent]
+    if tax.save
+      flash[:notice] = "You have successfully saved your tax"
+      redirect_to("/view_taxes_menu")
+    else
+      flash[:error] = "Failed to save"
+      redirect_to("/new_taxes_menu")
+    end
+
+  end
+
+  def update_tax
+    tax = Tax.find(params[:tax_id])
+    tax.name = params[:tax_name]
+    tax.value = params[:tax_percent]
+    if tax.save
+      flash[:notice] = "You have successfully updated your tax"
+      redirect_to("/edit_taxes_menu")
+    else
+      flash[:error] = "Failed to update"
+      redirect_to("/edit_tax/#{params[:tax_id]}")
+    end
+  end
+
   def edit_taxes_menu
     @page_title = "Editing Taxes"
+    @taxes = Tax.find(:all)
   end
 
   def edit_tax
-
+    @tax = Tax.find(params[:tax_id])
+    @page_title = "Editing <a href='#'>#{@tax.name}</a>"
   end
 
   def view_taxes_menu
     @page_title = "View Taxes"
+    @taxes = Tax.find(:all)
   end
 
   def remove_taxes_menu
     @page_title = "Remove Taxes"
+    @taxes = Tax.find(:all)
+  end
+
+  def remove_taxes
+    tax_ids = params[:tax_ids].split(',')
+
+    tax_ids.each do |tax_id|
+      tax = Tax.find(tax_id)
+      tax.voided = 1
+      tax.save
+    end
+
+    flash[:notice] = "You have successfully deleted your records"
+    redirect_to("/remove_taxes_menu")
   end
   #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
