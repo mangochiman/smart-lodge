@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
   map.view_rooms_menu  '/view_users_menu',  :controller => 'admin', :action => 'view_users_menu'
   map.remove_rooms_menu  '/remove_users_menu',  :controller => 'admin', :action => 'remove_users_menu'
 
+  map.new_black_list_menu  '/new_black_list_menu',  :controller => 'pages', :action => 'new_black_list_menu'
+  map.view_black_list_menu  '/view_black_list_menu',  :controller => 'pages', :action => 'view_black_list_menu'
+  map.delete_black_list_menu  '/delete_black_list_menu',  :controller => 'pages', :action => 'delete_black_list_menu'
 
   map.my_account  '/my_account',  :controller => 'admin', :action => 'my_account'
   map.admin_dashboard  '/admin_dashboard',  :controller => 'admin', :action => 'dashboard'

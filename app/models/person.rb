@@ -16,5 +16,25 @@ class Person < ActiveRecord::Base
     
     return people
   end
-  
+
+  def self.retrieve_clean_records
+    black_list_ids = BlackList.find(:all).map(&:person_id)
+    black_list_ids = [0] if black_list_ids.blank?
+    people = Person.find(:all, :conditions => ["person_id NOT IN (?)", black_list_ids])
+    return people
+  end
+
+  def self.black_listed_records
+    black_list_ids = BlackList.find(:all).map(&:person_id)
+    black_list_ids = [0] if black_list_ids.blank?
+    people = Person.find(:all, :conditions => ["person_id IN (?)", black_list_ids])
+    return people
+  end
+
+  def self.date_black_listed(person_id)
+    black_list = BlackList.find_by_person_id(person_id)
+    return "" if black_list.blank?
+    value_date = black_list.value_date
+    return value_date
+  end
 end

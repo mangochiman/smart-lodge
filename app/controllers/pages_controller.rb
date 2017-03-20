@@ -332,4 +332,34 @@ class PagesController < ApplicationController
     end
   end
 
+  def new_black_list_menu
+    @page_title = "New Blacklist Record"
+    @people = Person.retrieve_clean_records
+  end
+
+  def black_list_client
+    person = Person.find(params[:person_id])
+    black_list = BlackList.new
+    black_list.person_id = params[:person_id]
+    black_list.value_date = Date.today
+    if black_list.save
+      flash[:notice] = "#{person.first_name} #{person.last_name} has been black listed"
+      redirect_to("/view_black_list_menu") and return
+    else
+      flash[:error] = "Failed to blacklist #{person.first_name} #{person.last_name}"
+      redirect_to("/new_black_list_menu") and return
+    end
+    
+  end
+
+  def view_black_list_menu
+    @page_title = "View Blacklist Records"
+    @people = Person.black_listed_records
+  end
+
+  def delete_black_list_menu
+    @page_title = "View Blacklist Records"
+    @people = Person.black_listed_records
+  end
+  
 end
