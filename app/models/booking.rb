@@ -56,6 +56,17 @@ class Booking < ActiveRecord::Base
     return booking_details
   end
 
+  def self.checkouts_by_date_range(start_date, end_date)
+    booking_statuses = BookingStatus.find(:all, :order => "booking_status_id DESC",
+      :conditions => ["status =? AND DATE(status_date) >= ? AND DATE(status_date) <= ?", "checkout", start_date, end_date])
+    booking_details = []
+    booking_statuses.each do |booking_status|
+      person = booking_status.booking.person
+      booking_details << [person, booking_status]
+    end
+    return booking_details
+  end
+
   def self.checkout_date(booking_id)
     booking_status = BookingStatus.find(:last, :conditions => ["booking_id =? AND status =?",
         booking_id, "checkout"])
@@ -198,5 +209,15 @@ class Booking < ActiveRecord::Base
     data = "Names: <a href='#'>#{person.first_name} #{person.last_name}</a>, Phone #: <a href='#'>#{person.phone_number}</a>, E-mail #: <a href='#'>#{person.email}</a>"
     return data
   end
-  
+
+  def self.first_check_out_date
+    booking_status = BookingStatus.find(:first, :order => "DATE(status_date) ASC", :conditions => ["status =?", "checkout"])
+    return booking_status.status_date
+  end
+
+  def self.last_check_out_date
+    booking_status = BookingStatus.find(:last, :order => "DATE(status_date) ASC", :conditions => ["status =?", "checkout"])
+    return booking_status.status_date
+  end
+
 end

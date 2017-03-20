@@ -1,0 +1,53 @@
+<div class="row">
+  <table style="margin-left: 20px;">
+    <form action="/checkout_report_menu">
+      <tr>
+        <td style="width:70px;">Dates</td>
+        <td style="width: 260px;">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="icon-calendar"></i></span>
+            <input class="form-control" name="dates" id="reportrange" type="text"/>
+          </div>
+        </td>
+        <td style="width:100px;">
+          <button type="submit" class="btn btn-success pull-right">Display Report</button>
+        </td>
+      </tr>
+    </form>
+  </table>
+</div>
+
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @checkouts_data.each do |person, booking_details| %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.reports').addClass('active');
+  }, 150);
+
+</script>

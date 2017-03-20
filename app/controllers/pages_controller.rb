@@ -306,6 +306,16 @@ class PagesController < ApplicationController
 
   def checkout_report_menu
     @page_title = "Checkout report"
+    @checkouts_data = []
+    unless params[:dates].blank?
+      start_date = params[:dates].split("-")[0].to_date
+      end_date = params[:dates].split("-")[1].to_date
+      @checkouts_data = Booking.checkouts_by_date_range(start_date, end_date)
+    else
+      start_date = Booking.first_check_out_date
+      end_date = Booking.last_check_out_date
+      @checkouts_data = Booking.checkouts_by_date_range(start_date, end_date)
+    end
   end
 
   def payments_report_menu
