@@ -81,6 +81,15 @@
                       <td class="no-line text-center"><strong>Total</strong></td>
                       <td class="no-line text-right"><%= number_to_currency(sub_total, :unit => 'MWK') %></td>
                     </tr>
+                    <% @taxes.each do |tax| %>
+                      <tr>
+                        <td class="no-line"></td>
+                        <td class="no-line"></td>
+                        <td class="no-line text-center"><strong><%= tax.name.to_s + ' (' + tax.value.to_s + ' %)'%></strong></td>
+                        <td class="no-line text-right"><%= number_to_currency((sub_total * (tax.value/100)), :unit => 'MWK') %></td>
+                      </tr>
+                    <% end %>
+
                   </tbody>
                 </table>
               </div>
@@ -130,7 +139,7 @@
     jQuery('#guest-nav').addClass('in');
   }, 150);
 
-function createInvoice(bookingID){
-  window.location = "/new_invoice?booking_id=" + bookingID;
-}
+  function createInvoice(bookingID){
+    window.location = "/new_invoice?booking_id=" + bookingID;
+  }
 </script>
