@@ -13,6 +13,19 @@ class PrintController < ApplicationController
     @total_days_spent = (Date.today - @check_in_date.to_date).to_i
   end
 
+  def download_invoice
+    booking_id = params[:booking_id]
+    person = Booking.find(booking_id).person
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/view_invoice_plain/?booking_id=#{booking_id}" + "\" /tmp/invoice_#{booking_id}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/invoice_#{booking_id}.pdf"
+    send_file(pdf_filename, :filename => "#{person.first_name}_#{person.last_name}", :type => "application/pdf")
+  end
+
   def print_invoice
     booking_id = params[:booking_id]
     person = Booking.find(booking_id).person
