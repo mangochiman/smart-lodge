@@ -95,6 +95,7 @@
     <!-- this row will not appear when printing -->
     <div class="row no-print">
       <div class="col-xs-12">
+        <button class="btn btn-success" onclick="viewInvoice();"><i class="icon-eye-open"></i> View Invoice</button>
         <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#formModal"><i class="icon-download"></i> New Item</button>
       </div>
     </div>
@@ -166,7 +167,8 @@
   }, 150);
 
   var selectedItemID;
-  var bookingID = '<%= params[:booking_id] %>'
+  var bookingID = '<%= params[:booking_id] %>';
+  
   function showConfirmationPopup(billable_item_id){
     selectedItemID = billable_item_id;
     jQuery('#deleteItemModal').modal('show');
@@ -175,4 +177,9 @@
   function voidItem(){
     window.location = "/pages/void_billable_item?booking_id=" + bookingID + "&billable_item_id=" + selectedItemID;
   }
+
+  function viewInvoice(){
+    window.location = "/view_invoice?booking_id=" + bookingID;
+  }
+  
 </script>
