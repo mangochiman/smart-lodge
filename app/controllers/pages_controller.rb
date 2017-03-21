@@ -96,6 +96,9 @@ class PagesController < ApplicationController
   def invoices_menu
     @page_title = "Invoices"
     @available_unique_bookings = Booking.available_unique_bookings
+    
+    @available_invoices_bookings = Booking.available_invoices
+    @missing_invoices_bookings = Booking.missing_invoices
   end
 
   def new_invoice

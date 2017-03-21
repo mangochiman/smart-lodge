@@ -1,35 +1,73 @@
 
-<div class="panel-body">
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Gender</th>
-          <th>Phone #</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @available_unique_bookings.each do |person, booking_details| %>
-          <tr class="odd gradeX">
-            <td><%= person.first_name %></td>
-            <td><%= person.last_name %></td>
-            <td><%= person.gender %></td>
-            <td class="center"><%= person.phone_number %></td>
-            <td><button onclick="newInvoice('<%= booking_details.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-edit icon-white"></i> Create Invoice</button></td>
-            <td><button onclick="viewInvoice('<%= booking_details.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-eye-open icon-white"></i> View Invoice</button></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<div class="">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <b>Bookings with invoices</b>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover invoice-table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Phone #</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @available_invoices_bookings.each do |booking| %>
+              <% person = booking.person %>
+              <tr class="odd gradeX">
+                <td><%= person.first_name %></td>
+                <td><%= person.last_name %></td>
+                <td><%= person.gender %></td>
+                <td class="center"><%= person.phone_number %></td>
+                <td><button onclick="viewInvoice('<%= booking.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-eye-open icon-white"></i> View Invoice</button></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-
 </div>
 
-
+<div class="">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <b>Bookings without invoices</b>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover invoice-table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Phone #</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @missing_invoices_bookings.each do |booking| %>
+              <% person = booking.person %>
+              <tr class="odd gradeX">
+                <td><%= person.first_name %></td>
+                <td><%= person.last_name %></td>
+                <td><%= person.gender %></td>
+                <td class="center"><%= person.phone_number %></td>
+                <td><button onclick="newInvoice('<%= booking.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i> Create Invoice</button></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

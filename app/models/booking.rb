@@ -220,4 +220,17 @@ class Booking < ActiveRecord::Base
     return booking_status.status_date
   end
 
+  def self.available_invoices
+    bookings = Booking.find(:all, :joins => "INNER JOIN billable_items ON bookings.booking_id = billable_items.booking_id",
+    :group => "bookings.booking_id", :conditions => ["billable_items.voided=0"])
+    return bookings
+  end
+
+  def self.missing_invoices
+    booking_ids = BillableItem.find(:all).map(&:booking_id).uniq
+    booking_ids = [0] if booking_ids.blank?
+    bookings = Booking.find(:all, :conditions => ["booking_id NOT IN (?)", booking_ids])
+    return bookings
+  end
+
 end
