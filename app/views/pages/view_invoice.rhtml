@@ -101,7 +101,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <button class="btn btn-primary"><i class="icon-print"></i> Print</button>
+          <button class="btn btn-primary" onclick="printVoice();"><i class="icon-print"></i> Print</button>
           <button class="btn btn-success" onclick="updateInvoice();"><i class="icon-edit"></i> Update</button>
           <button class="btn btn-primary pull-right"><i class="icon-download"></i> Download</button>
         </div>
@@ -149,4 +149,8 @@
     window.location = "/new_invoice?booking_id=" + booking_id;
   }
 
+  function printVoice(){
+    window.location = "/print_invoice?booking_id=" + booking_id;
+  }
+  
 </script>
