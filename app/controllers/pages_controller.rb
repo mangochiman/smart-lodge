@@ -139,7 +139,19 @@ class PagesController < ApplicationController
     @check_in_date = Booking.check_in_date(params[:booking_id])
     @total_days_spent = (Date.today - @check_in_date.to_date).to_i
   end
-  
+
+  def view_invoice_plain
+    @room = Booking.room(params[:booking_id])
+    @person = Booking.find(params[:booking_id]).person
+    @page_title = "Invoice For  #{@person.first_name} #{@person.last_name} - Room #: <a>#{@room.number}</a>, Room Name: <a>#{@room.name}</a>"
+    @booking = Booking.find(params[:booking_id])
+    @billable_items = @booking.billable_items
+    @taxes = Tax.find(:all)
+    @check_in_date = Booking.check_in_date(params[:booking_id])
+    @total_days_spent = (Date.today - @check_in_date.to_date).to_i
+    render :layout => false
+  end
+
   def new_payment_menu
     @page_title = "New payments <span class='label label-info'>Only possible for customers that are not checked out</span>"
     @active_check_ins = Booking.active_check_ins
