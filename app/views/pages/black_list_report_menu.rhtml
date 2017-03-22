@@ -1,0 +1,36 @@
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+          <th>Date Blacklisted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @black_listed_people.each do |person| %>
+        <% date_black_listed = Person.date_black_listed(person.person_id) %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+            <td class="center"><%= date_black_listed.to_date.strftime("%d-%b-%Y") rescue date_black_listed %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.reports').addClass('active');
+  }, 150);
+</script>

@@ -375,6 +375,12 @@ class PagesController < ApplicationController
 
   def payments_report_menu
     @page_title = "Payments report"
+    @booking_payments = Booking.payments
+  end
+
+  def black_list_report_menu
+    @page_title = "Blacklist report"
+    @black_listed_people = Person.black_listed_records
   end
   
   def search_rooms

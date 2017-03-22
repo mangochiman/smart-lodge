@@ -233,4 +233,10 @@ class Booking < ActiveRecord::Base
     return bookings
   end
 
+  def self.payments
+   booking_payments = BookingPayment.find(:all, :joins => "INNER JOIN bookings ON booking_payments.booking_id = bookings.booking_id",
+    :conditions => ["bookings.voided = ?", 0], :order => "booking_payment_id DESC", :group => "bookings.person_id")
+   return booking_payments
+  end
+
 end

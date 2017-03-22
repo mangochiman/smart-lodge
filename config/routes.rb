@@ -74,6 +74,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search_rooms  '/search_rooms',  :controller => 'pages', :action => 'search_rooms'
   map.checkout_report_menu  '/checkout_report_menu',  :controller => 'pages', :action => 'checkout_report_menu'
   map.payments_report_menu  '/payments_report_menu',  :controller => 'pages', :action => 'payments_report_menu'
+  map.black_list_report_menu  '/black_list_report_menu',  :controller => 'pages', :action => 'black_list_report_menu'
   #map.search_results  '/search_results',  :controller => 'pages', :action => 'search_results'
 
   map.view_invoice_plain  '/view_invoice_plain',  :controller => 'print', :action => 'view_invoice_plain'
