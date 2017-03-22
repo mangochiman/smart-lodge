@@ -13,17 +13,26 @@
               <th>Last Name</th>
               <th>Gender</th>
               <th>Phone #</th>
+              <th>Room Name</th>
+              <th style="width: 140px;">Check-in Date</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <% @available_invoices_bookings.each do |booking| %>
-              <% person = booking.person %>
+              <%
+              room_name = Booking.room(booking.booking_id).name rescue ''
+              check_in_date = Booking.check_in_date(booking.booking_id).to_date.strftime("%d-%b-%Y") rescue ''
+              person = booking.person
+            %>
+
               <tr class="odd gradeX">
                 <td><%= person.first_name %></td>
                 <td><%= person.last_name %></td>
                 <td><%= person.gender %></td>
                 <td class="center"><%= person.phone_number %></td>
+                <td><%= room_name %></td>
+                <td><%= check_in_date %></td>
                 <td><button onclick="viewInvoice('<%= booking.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-eye-open icon-white"></i> View Invoice</button></td>
               </tr>
             <% end %>
@@ -48,17 +57,25 @@
               <th>Last Name</th>
               <th>Gender</th>
               <th>Phone #</th>
+              <th>Room Name</th>
+              <th style="width: 140px;">Check-in Date</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <% @missing_invoices_bookings.each do |booking| %>
-              <% person = booking.person %>
+              <%
+              room_name = Booking.room(booking.booking_id).name rescue ''
+              check_in_date = Booking.check_in_date(booking.booking_id).to_date.strftime("%d-%b-%Y") rescue ''
+              person = booking.person
+            %>
               <tr class="odd gradeX">
                 <td><%= person.first_name %></td>
                 <td><%= person.last_name %></td>
                 <td><%= person.gender %></td>
                 <td class="center"><%= person.phone_number %></td>
+                <td><%= room_name %></td>
+                <td><%= check_in_date %></td>
                 <td><button onclick="newInvoice('<%= booking.booking_id %>')" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i> Create Invoice</button></td>
               </tr>
             <% end %>

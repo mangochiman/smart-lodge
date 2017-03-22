@@ -1,0 +1,55 @@
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Phone #</th>
+          <th style="width: 200px;">&nbsp;</th>
+          <th style="width: 200px;">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @people.each do |person| %>
+          <tr class="odd gradeX">
+            <td><%= person.first_name %></td>
+            <td><%= person.last_name %></td>
+            <td><%= person.gender %></td>
+            <td class="center"><%= person.phone_number %></td>
+            <td>
+              <button class="btn btn-info btn-block" onclick="bookingHistory('<%= person.person_id %>')">Booking History </button>
+            </td>
+            <td>
+              <% if Person.checked_out?(person) %>
+              <button class="btn btn-primary btn-block" onclick="checkInExistingClient('<%= person.person_id %>')">Check-in Client </button>
+              <% else %>
+              <button class="btn btn-block disabled"><span class="text-muted">Check-in Client </span></button>
+              <% end %>
+              
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.guests').addClass('active');
+    jQuery('#guest-nav').addClass('in');
+  }, 150);
+
+  function bookingHistory(personID){
+    window.location = "/personal_booking_details?person_id=" + personID;
+  }
+
+  function checkInExistingClient(personID){
+    window.location = "/check_in_existing_customer?person_id=" + personID;
+  }
+
+</script>

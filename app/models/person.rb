@@ -37,4 +37,20 @@ class Person < ActiveRecord::Base
     value_date = black_list.value_date
     return value_date
   end
+
+  def self.checked_out?(person)
+    checked_out = true
+
+    person.bookings.each do |booking|
+      booking_statuses = booking.booking_statuses.map(&:status)
+      if booking_statuses.include?('checkout')
+        next
+      end
+      checked_out = false
+      break
+    end
+    
+    return checked_out
+  end
+
 end

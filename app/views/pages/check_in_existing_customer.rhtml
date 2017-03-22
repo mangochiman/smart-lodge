@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="box dark">
+      <div id="div-1" class="accordion-body collapse in body">
+        <form class="form-horizontal" action="/pages/check_in_existing_customer" method="POST">
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">First Name</label>
+
+            <div class="col-lg-8">
+              <input value="<%= @person.first_name %>" readonly="" class="form-control" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Last Name</label>
+
+            <div class="col-lg-8">
+              <input value="<%= @person.last_name %>" readonly="" class="form-control" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Gender</label>
+
+            <div class="col-lg-8">
+              <input value="<%= @person.gender %>" readonly="" class="form-control" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Phone #</label>
+
+            <div class="col-lg-8">
+              <input value="<%= @person.phone_number %>" readonly="" class="form-control" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">E-mail</label>
+
+            <div class="col-lg-8">
+              <input value="<%= @person.email %>" readonly="" class="form-control" type="text"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Address</label>
+
+            <div class="col-lg-8">
+              <textarea readonly="" class="form-control" rows="3"><%= @person.address %></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Room</label>
+
+            <div class="col-lg-8">
+              <select class="form-control" name="room_id" required="true">
+                <% @rooms.each do |room| %>
+                  <option></option>
+                  <option value="<%= room.room_id %>"><%= room.name %> (<%= room.room_type.room_type %>)</option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">Reservation Dates</label>
+
+            <div class="col-lg-8">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                <input name="reservation_dates" required="true" id="reservation" class="form-control" type="text"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-lg-4">&nbsp;</label>
+
+            <div class="col-lg-8">
+              <input type="hidden" value="<%= params[:person_id] %>" name="person_id"/>
+              <button type="submit" class="btn btn-success">Confirm Checkin</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

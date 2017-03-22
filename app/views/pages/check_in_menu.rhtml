@@ -47,93 +47,106 @@
 </div>
 
 <div class="panel-body">
-  <form role="form" action="/pages/create_bookings" id="bookings" method="POST">
-    <div id="wizardV" >
-      <h2> Personal </h2>
-      <section>
-        <div class="form-group">
-          <label>First Name</label>
-          <input class="form-control" name="person[first_name]" required />
-        </div>
+  <form class="form-horizontal" action="/pages/create_bookings" id="bookings" method="POST">
 
-        <div class="form-group">
-          <label>Last Name</label>
-          <input class="form-control" name="person[last_name]" />
-        </div>
+    <div class="form-group">
+      <label class="control-label col-lg-4">First Name</label>
 
-        <div class="form-group">
-          <label>Gender</label>
-          <select class="form-control" name="person[gender]">
-            <option></option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Title</label>
-          <select class="form-control" name=person[title]>
-            <option></option>
-            <option>Mr</option>
-            <option>Mrs</option>
-            <option>Miss</option>
-            <option>Dr</option>
-            <option>Prof.</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input class="form-control" name="person[phone_number]"/>
-        </div>
-
-        <div class="form-group">
-          <label>Email</label>
-          <input class="form-control" name="person[email]" />
-        </div>
-
-        <div class="form-group">
-          <label>Address</label>
-          <textarea class="form-control" rows="3" name="person[address]"></textarea>
-        </div>
-
-      </section>
-
-      <h2> Reservations </h2>
-      <section>
-        <div class="form-group">
-          <label>Select Room</label>
-          <select class="form-control" name="room_id">
-            <option></option>
-            <% @rooms.each do |room| %>
-              <option value="<%= room.room_id %>"><%= room.name %>(<%= room.room_type.room_type %>)</option>
-            <% end %>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Reservation Dates</label>
-          <div class="input-group">
-            <span class="input-group-addon"><i class="icon-calendar"></i></span>
-            <input name="reservation_dates" id="reservation" class="form-control" type="text"/>
-          </div>
-        </div>
-
-
-      </section>
-
-      <h2>Agreement</h2>
-      <section>
-        <p style="text-align:justify;color:gray;">
-          <b> Agreement & Declaration</b> <br /><br />
-          The customer agrees with the Terms and Conditions
-          <br />
-
-
-        </p>
-      </section>
-
+      <div class="col-lg-8">
+        <input name="person[first_name]" class="form-control" type="text" required/>
+      </div>
     </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Last Name</label>
+
+      <div class="col-lg-8">
+        <input name="person[last_name]" class="form-control" type="text" required/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Gender</label>
+
+      <div class="col-lg-8">
+        <select class="form-control" name="person[gender]" required>
+          <option></option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Title</label>
+      <div class="col-lg-8">
+        <select class="form-control" name="person[title]" required>
+          <option></option>
+          <option>Mr</option>
+          <option>Mrs</option>
+          <option>Miss</option>
+          <option>Dr</option>
+          <option>Prof.</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Phone #</label>
+
+      <div class="col-lg-8">
+        <input name="person[phone_number]" class="form-control" type="text" required/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">E-mail</label>
+
+      <div class="col-lg-8">
+        <input name="person[email]" class="form-control" type="text"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Address</label>
+
+      <div class="col-lg-8">
+        <textarea name="person[address]" class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Room</label>
+
+      <div class="col-lg-8">
+        <select class="form-control" name="room_id" required="true">
+          <% @rooms.each do |room| %>
+            <option></option>
+            <option value="<%= room.room_id %>"><%= room.name %> (<%= room.room_type.room_type %>)</option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">Reservation Dates</label>
+
+      <div class="col-lg-8">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon-calendar"></i></span>
+          <input name="reservation_dates" required="true" id="reservation" class="form-control" type="text"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-4">&nbsp;</label>
+
+      <div class="col-lg-8">
+        <button type="submit" class="btn btn-success">Confirm Checkin</button>
+      </div>
+    </div>
+    
   </form>
 </div>
 

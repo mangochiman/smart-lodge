@@ -8,16 +8,24 @@
           <th>Last Name</th>
           <th>Gender</th>
           <th>Phone #</th>
+          <th>Room Name</th>
+          <th style="width: 140px;">Check-in Date</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         <% @active_check_ins.each do |person, booking_details| %>
+        <%
+          room_name = Booking.room(booking_details.booking_id).name rescue ''
+          check_in_date = Booking.check_in_date(booking_details.booking_id).to_date.strftime("%d-%b-%Y") rescue ''
+      %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
+            <td><%= room_name %></td>
+            <td><%= check_in_date %></td>
             <td><button onclick="checkoutClient('<%= booking_details.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-ok icon-white"></i> Checkout</button></td>
           </tr>
         <% end %>

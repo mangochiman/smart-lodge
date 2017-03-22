@@ -13,6 +13,41 @@ class PagesController < ApplicationController
     @rooms = Room.available_rooms
   end
 
+  def check_in_existing_customer
+    @page_title = "Check-in existing customer"
+    @person = Person.find(params[:person_id])
+    @rooms = Room.available_rooms
+
+    if request.post?
+      reservation_dates = params[:reservation_dates].split("-")
+      start_date = reservation_dates[0].to_date
+      end_date = reservation_dates[1].to_date
+      room_id = params[:room_id]
+
+      ActiveRecord::Base.transaction do
+        booking = Booking.new
+        booking.person_id = params[:person_id]
+        booking.start_date = start_date
+        booking.end_date = end_date
+        booking.save
+
+        room_booking = RoomBooking.new
+        room_booking.booking_id = booking.booking_id
+        room_booking.room_id = room_id
+        room_booking.save
+
+        booking_status = BookingStatus.new
+        booking_status.booking_id = booking.booking_id
+        booking_status.status = 'checkin'
+        booking_status.status_date = Date.today
+        booking_status.save
+      end
+
+      flash[:notice] = "#{@person.first_name} #{@person.last_name} has been Checked-in successfuly"
+      redirect_to("/guests")
+    end
+  end
+  
   def check_out_menu
     @page_title = "Check Out"
     @active_check_ins = Booking.active_check_ins
@@ -179,7 +214,7 @@ class PagesController < ApplicationController
     booking_payment.amount_paid = params[:amount_paid]
     if booking_payment.save
       flash[:notice] = "Payment successfully saved"
-      redirect_to("/view_payments_menu") and return 
+      redirect_to("/view_payments_menu") and return
     else
       flash[:error] = "Failed to save the payment"
       redirect_to("/make_payment?booking_id=#{params[:booking_id]}") and return
@@ -213,8 +248,11 @@ class PagesController < ApplicationController
   end
 
   def search_results
-    @page_title = "Search Results"
     @people = Person.search(params)
+    string = "results"
+    string = "result" if @people.count == 1
+    @page_title = "Search Results: <b>#{@people.count}</b> #{string} found"
+    
   end
 
   def create_bookings
