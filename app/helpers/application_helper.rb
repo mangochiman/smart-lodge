@@ -32,5 +32,10 @@ module ApplicationHelper
     rooms = Room.find(:all)
     return rooms
   end
+
+  def settings
+    settings = YAML.load(File.read(Rails.root.to_s + "/config/settings.yml"))
+    return settings
+  end
   
 end
