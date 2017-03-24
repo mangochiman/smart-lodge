@@ -53,4 +53,32 @@ class PrintController < ApplicationController
     end
   end
 
+  def bookings_by_gender_report_menu_print
+    @page_title = "Bookings by gender report"
+    @people = Person.all
+    @people = [] if params[:gender].blank?
+
+    unless params[:gender].blank?
+      gender = params[:gender]
+      gender = ["Male", "Female"] if params[:gender] == 'ALL'
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id",
+        :conditions => ["gender IN (?)", gender],
+        :group => "booking_id")
+    end
+  end
+
+  def print_bookings_by_gender_report_menu
+    gender = params[:gender]
+    file_name = "bookings_by_gender_report"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/bookings_by_gender_report_menu_print/?gender=#{gender}" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+
+  end
+  
 end

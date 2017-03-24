@@ -46,3 +46,16 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.payments').addClass('active');
+    jQuery('#payment-nav').addClass('in');
+  }, 150);
+
+  function makePayment(bookingID){
+    window.location = "/make_payment?booking_id=" + bookingID;
+  }
+
+</script>
