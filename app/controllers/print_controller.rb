@@ -113,4 +113,60 @@ class PrintController < ApplicationController
     send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
   end
 
+  def bookings_by_room_report_menu_print
+    @page_title = "Bookings by room report"
+    @people = [] if params[:room_id].blank?
+    @room_name = ""
+    unless params[:room_id].blank?
+      @room_name = Room.find(params[:room_id]).name
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id INNER JOIN room_bookings ON bookings.booking_id = room_bookings.booking_id",
+        :conditions => ["room_id =?", params[:room_id]],
+        :group => "bookings.booking_id")
+    end
+  end
+
+  def print_bookings_by_room_report_menu
+    room_id = params[:room_id]
+    file_name = "bookings_by_room"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/bookings_by_room_report_menu_print?room_id=#{room_id}" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+  end
+
+  def checkout_report_menu_print
+    @page_title = "Checkout report"
+    @checkouts_data = []
+    unless params[:dates].blank?
+      start_date = params[:dates].split("-")[0].to_date
+      @start_date = start_date.strftime("%d-%b-%Y")
+      end_date = params[:dates].split("-")[1].to_date
+      @end_date = end_date.strftime("%d-%b-%Y")
+      @checkouts_data = Booking.checkouts_by_date_range(start_date, end_date)
+    else
+      start_date = Booking.first_check_out_date
+      @start_date = start_date.strftime("%d-%b-%Y")
+      end_date = Booking.last_check_out_date
+      @end_date = end_date.strftime("%d-%b-%Y")
+      @checkouts_data = Booking.checkouts_by_date_range(start_date, end_date)
+    end
+  end
+
+  def print_checkout_report_menu
+    dates = params[:dates]
+    file_name = "checkout_report"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/checkout_report_menu_print?dates=#{dates}" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+  end
+  
 end
