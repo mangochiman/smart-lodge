@@ -42,6 +42,15 @@
     </table>
   </div>
 
+  <div class="btn-group">
+    <button class="btn btn-success">Download as</button>
+    <button data-toggle="dropdown" class="btn btn-success dropdown-toggle"><span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#" onclick="exportToCSV();">Excel Document</a></li>
+      <li class="divider"></li>
+      <li><a href="#" onclick="exportToPDF();">PDF document</a></li>
+    </ul>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -51,4 +60,35 @@
 
   var date = '<%= params[:dates] %>';
   document.getElementById('reportrange').value = date;
+
+  function exportToCSV(){
+    $('#csv').table2CSV({header:['First Name','Last Name','Gender','Phone #']})
+  }
+
+  function exportToPDF(){
+    window.location = "/print/print_bookings_by_custom_date_report_menu?dates=" + date;
+  }
 </script>
+
+<div style="position:absolute; z-index: -1000">
+  <table id="csv">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Phone #</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person, booking_details| %>
+        <tr>
+          <td><%= person.first_name %></td>
+          <td><%= person.last_name %></td>
+          <td><%= person.gender %></td>
+          <td><%= person.phone_number %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

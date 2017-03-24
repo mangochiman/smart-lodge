@@ -80,5 +80,37 @@ class PrintController < ApplicationController
     send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
 
   end
-  
+
+  def bookings_by_custom_date_report_menu_print
+    @page_title = "Bookings by custom date report"
+    @today = Date.today.strftime("%m/%d/%Y") + ' - ' + Date.today.strftime("%m/%d/%Y")
+    @people = [] if params[:dates].blank?
+    @start_date = ""
+    @end_date = ""
+    unless params[:dates].blank?
+      start_date = params[:dates].split("-")[0].to_date
+      @start_date = start_date
+      end_date = params[:dates].split("-")[1].to_date
+      @end_date = end_date
+
+      @people = Person.find(:all, :joins => "INNER JOIN bookings ON people.person_id = bookings.person_id INNER JOIN booking_statuses ON bookings.booking_id = booking_statuses.booking_id",
+        :conditions => ["DATE(status_date) >= ? AND DATE(status_date) <= ? AND status = ?", start_date, end_date, 'checkin'],
+        :group => "bookings.booking_id")
+    end
+
+  end
+
+  def print_bookings_by_custom_date_report_menu
+    dates = params[:dates]
+    file_name = "bookings_by_custom_date"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/bookings_by_custom_date_report_menu_print/?dates=#{dates}" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+  end
+
 end
