@@ -168,5 +168,39 @@ class PrintController < ApplicationController
     pdf_filename = "/tmp/#{file_name}.pdf"
     send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
   end
-  
+
+  def payments_report_menu_print
+    @page_title = "Payments report"
+    @booking_payments = Booking.payments
+  end
+
+  def print_payments_report_menu
+    file_name = "payments_report"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/payments_report_menu_print" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+  end
+
+  def black_list_report_menu_print
+    @page_title = "Blacklist report"
+    @black_listed_people = Person.black_listed_records
+  end
+
+  def print_black_list_report_menu
+    file_name = "black_list_report"
+    t1 = Thread.new{
+      Kernel.system "wkhtmltopdf --margin-top 0 --margin-bottom 0 -s A4 http://" +
+        request.env["HTTP_HOST"] + "\"/print/black_list_report_menu_print" + "\" /tmp/#{file_name}" + ".pdf \n"
+    }
+    t1.join
+
+    pdf_filename = "/tmp/#{file_name}.pdf"
+    send_file(pdf_filename, :filename => "#{file_name}", :type => "application/pdf")
+  end
+
 end

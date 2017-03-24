@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <% @black_listed_people.each do |person| %>
-        <% date_black_listed = Person.date_black_listed(person.person_id) %>
+          <% date_black_listed = Person.date_black_listed(person.person_id) %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>
@@ -25,6 +25,15 @@
     </table>
   </div>
 
+  <div class="btn-group">
+    <button class="btn btn-success">Download as</button>
+    <button data-toggle="dropdown" class="btn btn-success dropdown-toggle"><span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#" onclick="exportToCSV();">Excel Document</a></li>
+      <li class="divider"></li>
+      <li><a href="#" onclick="exportToPDF();">PDF document</a></li>
+    </ul>
+  </div>
 </div>
 
 
@@ -33,4 +42,39 @@
   window.setTimeout(function(){
     jQuery('.reports').addClass('active');
   }, 150);
+
+  function exportToCSV(){
+    $('#csv').table2CSV({header:['First Name','Last Name','Gender','Phone #', 'Date Blacklisted']})
+  }
+
+  function exportToPDF(){
+    window.location = "/print/print_black_list_report_menu";
+  }
+  
 </script>
+
+<div style="position:absolute; z-index: -1000">
+  <table id="csv">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Phone #</th>
+        <th>Date Blacklisted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @black_listed_people.each do |person| %>
+        <% date_black_listed = Person.date_black_listed(person.person_id) %>
+        <tr class="odd gradeX">
+          <td><%= person.first_name %></td>
+          <td><%= person.last_name %></td>
+          <td><%= person.gender %></td>
+          <td class="center"><%= person.phone_number %></td>
+          <td class="center"><%= date_black_listed.to_date.strftime("%d-%b-%Y") rescue date_black_listed %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
