@@ -462,5 +462,10 @@ class PagesController < ApplicationController
       redirect_to("/lock_screen") and return
     end
   end
+
+  def my_account_guests
+    @page_title = "My Profile"
+    @user = User.find(session[:user].user_id)
+  end
   
 end

@@ -1,0 +1,148 @@
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading no-collapse"><b>My Account</b></div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>First Name</th>
+          <td><a href="#" onclick="showModalPopup('first_name', 'First Name')" ><%= @user.first_name %></a></td>
+          <td><button onclick="showModalPopup('first_name', 'First Name')" class="btn btn-primary btn-block"> <i class="icon-pencil icon-white"></i> Edit </button></td>
+
+        </tr>
+        <tr>
+          <th>Last Name</th>
+          <td><a href="#" onclick="showModalPopup('last_name', 'Last Name')"><%= @user.last_name %></a></td>
+          <td><button onclick="showModalPopup('last_name', 'Last Name')" class="btn btn-primary btn-block"> <i class="icon-pencil icon-white"></i> Edit </button></td>
+        </tr>
+        <tr>
+          <th>Phone #</th>
+          <td><a href="#" onclick="showModalPopup('phone', 'Phone')"><%= @user.phone_number %></a></td>
+          <td><button onclick="showModalPopup('phone', 'Phone')" class="btn btn-primary btn-block"> <i class="icon-pencil icon-white"></i> Edit </button></td>
+        </tr>
+        <tr>
+          <th>E-mail</th>
+          <td><a href="#" onclick="showModalPopup('email', 'E-mail')"><%= @user.email %></a></td>
+          <td><button onclick="showModalPopup('email', 'E-mail')" class="btn btn-primary btn-block"> <i class="icon-pencil icon-white"></i> Edit </button></td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td><a href="#" onclick="showModalPopup('username', 'Username')"><%= @user.username %></a></td>
+          <td><button onclick="showModalPopup('username', 'Username')" class="btn btn-primary btn-block" onclick=""> <i class="icon-pencil icon-white"></i> Edit </button></td>
+        </tr>
+        <tr>
+          <th>Password</th>
+          <td><a href="#" onclick="showModalPopup('password', 'Password')">********</a></td>
+          <td><button onclick="showModalPopup('password', 'Password')" class="btn btn-primary btn-block" onclick=""><i class="icon-pencil icon-white"></i>  Edit </button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="col-lg-12">
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <h4 class="modal-title" id="H4"> <b id="field-title">Editing Field Name</b></h4>
+        </div>
+        <div class="modal-body">
+          <form action="/users/update_account_details" role="form" class="form-horizontal" method="POST">
+
+            <div class="form-group first_name hide-me">
+              <label class="control-label col-lg-4" for="first_name">First Name</label>
+              <div class="col-lg-7">
+                <input type="text" value="<%= @user.first_name %>" name="first_name" class="form-control" placeholder="First Name" id="first_name"/>
+              </div>
+            </div>
+
+            <div class="form-group last_name hide-me">
+              <label class="control-label col-lg-4" for="last_name">Last Name</label>
+              <div class="col-lg-7">
+                <input type="text" value="<%= @user.last_name %>" name="last_name" class="form-control" placeholder="Last Name" id="last_name"/>
+              </div>
+            </div>
+
+            <div class="form-group phone hide-me">
+              <label class="control-label col-lg-4" for="phone_number">Phone #</label>
+              <div class="col-lg-7">
+                <input type="text" value="<%= @user.phone_number %>" name="phone_number" class="form-control" placeholder="Phone Number" id="phone_number"/>
+              </div>
+            </div>
+
+            <div class="form-group email hide-me">
+              <label class="control-label col-lg-4" for="email">E-mail</label>
+              <div class="col-lg-7">
+                <input type="email" value="<%= @user.email %>" name="email" class="form-control" placeholder="E-mail" id="email"/>
+              </div>
+            </div>
+
+
+            <div class="form-group username hide-me">
+              <label class="control-label col-lg-4" for="username">Username</label>
+              <div class="col-lg-7">
+                <input type="username" value="<%= @user.username %>" name="username" class="form-control" placeholder="Username" id="username"/>
+              </div>
+            </div>
+
+            <div class="password hide-me">
+              <div class="form-group">
+                <label class="control-label col-lg-4" for="password">Old Password</label>
+                <div class="col-lg-7">
+                  <input type="password" name="old_password" class="form-control" placeholder="Password" id="password"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-lg-4" for="password">New Password</label>
+                <div class="col-lg-7">
+                  <input type="password" name="new_password" class="form-control" placeholder="Password" id="password"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-lg-4" for="confirm_password">Confirm Password</label>
+                <div class="col-lg-7">
+                  <input type="password" name="repeat_password" class="form-control" placeholder="Confirm Password" id="confirm_password"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-lg-4" for="confirm_password">&nbsp;</label>
+              <div class="col-lg-7">
+                <input class="btn btn-primary pull-right " type="submit" value="Update Account"></input>
+              </div>
+            </div>
+
+            <input type="hidden" name="field_type" id="field_type"></input>
+            <input type="hidden" value="my_account_guests" name="next_url"/>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .hide-me{
+    display: none;
+  }
+</style>
+<script type="text/javascript">
+  function showModalPopup(field, title){
+    console.log(field)
+    jQuery('.' + field).show();
+    jQuery('#field-title').html(title);
+    jQuery('#field_type')[0].value = field;
+    jQuery('#editModal').modal('show');
+  }
+
+  $('#editModal').on('hidden.bs.modal', function () {
+    console.log("Closing");
+    jQuery('.hide-me').hide();
+  })
+</script>

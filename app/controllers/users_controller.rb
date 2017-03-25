@@ -80,16 +80,20 @@ class UsersController < ApplicationController
 
   def update_account_details
     @user = User.find(session[:user].user_id)
-
+    unless params[:next_url].blank?
+      next_url = "/my_account_guests"
+    else
+      next_url = "/my_account"
+    end
     if params[:field_type] == 'first_name'
       if @user.update_attributes({
             :first_name => params[:first_name]
           })
         flash[:notice] = "You have successfully updated your first name"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       else
         flash[:error] = "Unable to process your request"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
@@ -98,10 +102,10 @@ class UsersController < ApplicationController
             :last_name => params[:last_name]
           })
         flash[:notice] = "You have successfully udated your last name"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       else
         flash[:error] = "Unable to process your request"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
@@ -110,10 +114,10 @@ class UsersController < ApplicationController
             :phone_number => params[:phone_number]
           })
         flash[:notice] = "You have successfully updated your phone number"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       else
         flash[:error] = "Unable to process your request"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
@@ -122,10 +126,10 @@ class UsersController < ApplicationController
             :email => params[:email]
           })
         flash[:notice] = "You have successfully updated your email"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       else
         flash[:error] = "Unable to process your request"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
@@ -134,10 +138,10 @@ class UsersController < ApplicationController
             :username => params[:username]
           })
         flash[:notice] = "You have successfully updated your username"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       else
         flash[:error] = "Unable to process your request"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
@@ -147,14 +151,14 @@ class UsersController < ApplicationController
           @user.password = User.encrypt(params[:new_password], @user.salt)
           @user.save
           flash[:notice] = "You have successfully updated your password. Your new password is <b>#{params[:new_password]}</b>"
-          redirect_to("/my_account") and return
+          redirect_to("#{next_url}") and return
         else
           flash[:error] = "Unable to save. New Password and Confirmation password does not match"
-          redirect_to("/my_account") and return
+          redirect_to("#{next_url}") and return
         end
       else
         flash[:error] = "Unable to save. Old password is not correct"
-        redirect_to("/my_account") and return
+        redirect_to("#{next_url}") and return
       end
     end
 
