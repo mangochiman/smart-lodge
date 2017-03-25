@@ -11,7 +11,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     user = User.find(session[:user].user_id) rescue nil
-    return true unless user.blank?
+    unless user.blank?
+      User.current_user = user
+      return true 
+    end
     access_denied
     return false
   end
@@ -30,4 +33,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def lock_screen_when_activated
+    user = User.find(session[:user].user_id) rescue nil
+    if user
+      return true if session[:screen_locked].blank?
+      redirect_to ("/lock_screen") and return
+      return true
+    end
+  end
+  
 end

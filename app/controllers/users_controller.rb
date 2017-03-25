@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   skip_before_filter :authenticate_user, :only => [:login, :authenticate, :create, :reset_password]
-
+  before_filter :lock_screen_when_activated, :except => [:login, :authenticate, :create, :reset_password]
+  
   def login
+    session.delete(:screen_locked) if session[:screen_locked]
     render :layout => false
   end
 
   def logout
     reset_session #Destroy all sessions
-    flash[:notice] = "You have been logged out. Bye"
+    #flash[:notice] = "You have been logged out. Bye"
     redirect_to("/login") and return
   end
 

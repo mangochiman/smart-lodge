@@ -81,6 +81,9 @@ ActionController::Routing::Routes.draw do |map|
   map.print_invoice  '/print_invoice',  :controller => 'print', :action => 'print_invoice'
   map.download_invoice  '/download_invoice',  :controller => 'print', :action => 'download_invoice'
   map.check_in_existing_customer  '/check_in_existing_customer',  :controller => 'pages', :action => 'check_in_existing_customer'
+
+  map.lock_screen  '/lock_screen',  :controller => 'pages', :action => 'lock_screen'
+  map.unlock_screen  '/unlock_screen',  :controller => 'pages', :action => 'unlock_screen'
   #########GUESTS END########################################################################
   
   # The priority is based upon order of creation: first created -> highest priority.

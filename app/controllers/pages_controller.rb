@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_filter :lock_screen_when_activated, :except => [:lock_screen, :unlock_screen]
   layout "guests"
   def guests
     @page_title = "Guests Dashboard"
@@ -433,6 +434,33 @@ class PagesController < ApplicationController
   def delete_black_list_menu
     @page_title = "View Blacklist Records"
     @people = Person.black_listed_records
+  end
+
+  def lock_screen
+    session[:screen_locked] = true
+    http_referrer = request.env["HTTP_REFERER"]
+
+    unless (http_referrer.blank? || (http_referrer.match(/lock_screen/i)))
+      session[:referrer] = request.referrer
+    end
+ 
+    render :layout => false
+  end
+
+  def unlock_screen
+    username = User.current_user.username
+    logged_in_user = User.authenticate(username, params[:password])
+
+    if logged_in_user
+      session.delete(:screen_locked) if session[:screen_locked]
+      (redirect_to("#{session[:referrer]}") and return) unless session[:referrer].blank?
+      redirect_to("/") and return
+    else
+      #flash[:error] = "Invalid password"
+      #request.referrer = session[:referrer]
+      #return
+      redirect_to("/lock_screen") and return
+    end
   end
   
 end

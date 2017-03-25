@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  before_filter :lock_screen_when_activated
   layout 'admin'
   
   def dashboard
