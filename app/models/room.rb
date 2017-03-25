@@ -21,4 +21,11 @@ class Room < ActiveRecord::Base
     return rooms
   end
 
+  def self.has_booking_records(room_id)
+    booking_records = RoomBooking.find(:all, :joins => "INNER JOIN rooms ON room_bookings.room_id = rooms.room_id
+      INNER JOIN bookings ON room_bookings.booking_id = bookings.booking_id",
+      :conditions => ["rooms.room_id = '#{room_id}' AND rooms.voided = 0 AND bookings.voided = 0"])
+    return booking_records
+  end
+
 end
