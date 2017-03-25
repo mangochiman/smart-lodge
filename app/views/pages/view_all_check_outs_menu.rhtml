@@ -22,9 +22,9 @@
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
             <td class="center"><%= RoomBooking.room(booking_status.booking_id).name %></td>
-            <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") %></td>
-            <td><%= Booking.checkout_date(booking_status.booking_id) %></td>
-            <td><button class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-out</button></td>
+            <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") rescue nil %></td>
+            <td><%= Booking.checkout_date(booking_status.booking_id).strftime("%d-%b-%Y") rescue nil %></td>
+            <td><button onclick="showCancelCheckoutConfirmation(<%= booking_status.booking_status_id %>)" class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-out</button></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,6 +33,25 @@
 
 </div>
 
+
+<div class="modal fade" id="cancelCheckoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="H2">Void Checkout</h4>
+      </div>
+      <div class="modal-body">
+        This will void the checkout of the selected client. Are you sure?
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Not Sure</button>
+        <button onclick="cancelClientCheckout();" type="button" class="btn btn-primary">Am sure</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -43,4 +62,27 @@
     jQuery('.dashboard').addClass('active');
   }, 150);
 
+  var selectedBookingStatusID;
+
+  function showCancelCheckoutConfirmation(booking_status_id){
+    selectedBookingStatusID = booking_status_id;
+    jQuery('#cancelCheckoutModal').modal('show');
+  }
+
+  function cancelClientCheckout(){
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/cancel_client_checkout";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = selectedBookingStatusID;
+    input.name = "booking_status_id";
+    form.appendChild(input);
+
+    form.submit();
+  }
 </script>

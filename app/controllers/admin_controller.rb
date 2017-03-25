@@ -349,6 +349,9 @@ class AdminController < ApplicationController
   def my_account
     @page_title = "My Profile"
     @user = User.find(session[:user].user_id)
+    if (params[:guest] || (@user.role.match(/receptionist/i)))
+      render :layout => "guests"
+    end
   end
 
   def new_taxes_menu

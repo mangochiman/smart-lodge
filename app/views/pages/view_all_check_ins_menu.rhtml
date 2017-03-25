@@ -16,15 +16,20 @@
       </thead>
       <tbody>
         <%  @checkins_ever.each do |person, booking_status| %>
+          <% checkout_date = Booking.checkout_date(booking_status.booking_id).to_date.strftime("%d-%b-%Y") rescue nil %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
             <td class="center"><%= RoomBooking.room(booking_status.booking_id).name %></td>
-            <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") %></td>
-            <td><%= Booking.checkout_date(booking_status.booking_id) rescue nil%></td>
-            <td><button class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-in</button></td>
+            <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") rescue nil %></td>
+            <td><%= checkout_date %></td>
+            <% if checkout_date.blank? %>
+              <td><button onclick="showCancelBookingConfirmation('<%= booking_status.booking_id %>')" class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-in</button></td>
+            <% else %>
+              <td><button class="btn disabled btn-block"><i class="icon-archive icon-white"></i> <span style="color: gray;">Cancel Check-in</span></button></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -33,7 +38,24 @@
 
 </div>
 
+<div class="modal fade" id="cancelBookingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="H2">Void Booking</h4>
+      </div>
+      <div class="modal-body">
+        This will cancel the booking of the selected client. All the associated data will be voided too. Are you sure?
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Not Sure</button>
+        <button onclick="cancelClientBooking();" type="button" class="btn btn-primary">Am sure</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -43,4 +65,27 @@
     jQuery('.dashboard').addClass('active');
   }, 150);
 
+  function cancelClientBooking(){
+    body = document.getElementsByTagName("body")[0];
+
+    form = document.createElement("form");
+    form.method = "POST"
+    form.action = "/cancel_client_booking";
+    body.appendChild(form);
+
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.value = selectedBookingID;
+    input.name = "booking_id";
+    form.appendChild(input);
+
+    form.submit();
+  }
+
+  var selectedBookingID;
+
+  function showCancelBookingConfirmation(booking_id){
+    selectedBookingID = booking_id;
+    jQuery('#cancelBookingModal').modal('show');
+  }
 </script>
