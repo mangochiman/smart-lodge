@@ -53,4 +53,12 @@ class Person < ActiveRecord::Base
     return checked_out
   end
 
+  def self.black_list_status(person)
+    black_list = BlackList.find_by_person_id(person.person_id)
+    unless black_list.blank?
+      return "Yes"
+    else
+      return "No"
+    end
+  end
 end

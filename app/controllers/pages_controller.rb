@@ -59,11 +59,13 @@ class PagesController < ApplicationController
     @page_title = "Check Out - Room #: <a>#{@room.number}</a>, Room Name: <a>#{@room.name}</a>"
     @person = Booking.find(params[:booking_id]).person
     @check_in_date = Booking.check_in_date(params[:booking_id])
+    @today = Date.today.strftime("%m/%d/%Y")
     @total_days_spent = (Date.today - @check_in_date.to_date).to_i
   end
 
   def process_checkout
-    if (Booking.checkout_client(params[:booking_id]))
+    checkout_date = params[:checkout_date].to_date
+    if (Booking.checkout_client(params[:booking_id], checkout_date))
       flash[:notice] = "Checkout is successful"
       redirect_to("/new_invoice?booking_id=#{params[:booking_id]}")
     else

@@ -55,8 +55,17 @@
         <h4 class="modal-title" id="H2">Checkout Client</h4>
       </div>
       <div class="modal-body">
-        This will checkout the selected client. Are you sure?
+        This will checkout the selected client. Are you sure?<br /><br /><br />
+        <form>
+          <div class="form-group">
+            <label class="control-label col-lg-4" for="dp2">Checkout Date</label>
 
+            <div class="col-lg-6">
+              <input class="form-control" name="checkout_date" readonly="true" value="<%= @today %>"  id="dp2" type="text"/>
+            </div>
+            <br />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Am not sure</button>
@@ -75,7 +84,8 @@
   var booking_id = '<%= params[:booking_id] %>';
 
   function checkoutClient(){
-    window.location = "/process_checkout?booking_id=" + booking_id;
+    checkout_date = document.getElementById('dp2').value;
+    window.location = "/process_checkout?booking_id=" + booking_id + '&checkout_date=' + checkout_date;
   }
   
 </script>

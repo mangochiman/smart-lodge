@@ -57,8 +57,8 @@
 
             <div class="col-lg-8">
               <select class="form-control" name="room_id" required="true">
+                <option></option>
                 <% @rooms.each do |room| %>
-                  <option></option>
                   <option value="<%= room.room_id %>"><%= room.name %> (<%= room.room_type.room_type %>)</option>
                 <% end %>
               </select>
@@ -71,7 +71,7 @@
             <div class="col-lg-8">
               <div class="input-group">
                 <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                <input name="reservation_dates" required="true" id="reservation" class="form-control" type="text"/>
+                <input autocomplete="off" readonly="true" name="reservation_dates" required="true" id="reservation" class="form-control" type="text"/>
               </div>
             </div>
           </div>

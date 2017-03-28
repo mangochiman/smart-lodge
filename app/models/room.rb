@@ -8,17 +8,25 @@ class Room < ActiveRecord::Base
   default_scope :conditions => "#{self.table_name}.voided = 0"
 
   def self.available_rooms
-    occupied_room_ids =  self.occupied_rooms.collect{|r|r.room_id}
-    occupied_room_ids = ['0'] if occupied_room_ids.blank?
-    rooms = Room.find(:all, :conditions => ["room_id NOT IN (?)", occupied_room_ids])
-    return rooms
+    available_rooms = []
+    rooms = Room.find(:all)
+    rooms.each do |room|
+      room_status = RoomBooking.room_status(room.room_id)
+      available_rooms << room if room_status.match(/available/i)
+    end
+
+    return available_rooms
   end
 
   def self.occupied_rooms
-    rooms = RoomBooking.find(:all, :joins => "INNER JOIN booking_statuses ON room_bookings.booking_id = booking_statuses.booking_id",
-      :conditions => ["booking_statuses.status = ?", 'checkin'], :group => "room_bookings.room_id"
-    ).collect{|rb|rb.room}
-    return rooms
+    occupied_rooms = []
+    rooms = Room.find(:all)
+    rooms.each do |room|
+      room_status = RoomBooking.room_status(room.room_id)
+      occupied_rooms << room if room_status.match(/occupied/i)
+    end
+
+    return occupied_rooms
   end
 
   def self.has_booking_records(room_id)

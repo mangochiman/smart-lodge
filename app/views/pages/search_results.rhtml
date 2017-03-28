@@ -7,27 +7,35 @@
           <th>Last Name</th>
           <th>Gender</th>
           <th>Phone #</th>
+          <th>Black listed?</th>
           <th style="width: 200px;">&nbsp;</th>
           <th style="width: 200px;">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         <% @people.each do |person| %>
+          <% black_list_status = Person.black_list_status(person) %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
+            <% if black_list_status.match(/YES/i) %>
+              <td style="text-align: center;"><span style="color: red; font-weight: bolder;"><%= black_list_status %></span></td>
+            <% else %>
+              <td style="text-align: center;"><%= black_list_status %></td>
+            <% end %>
+
             <td>
               <button class="btn btn-info btn-block" onclick="bookingHistory('<%= person.person_id %>')">Booking History </button>
             </td>
             <td>
               <% if Person.checked_out?(person) %>
-              <button class="btn btn-primary btn-block" onclick="checkInExistingClient('<%= person.person_id %>')">Check-in Client </button>
+                <button class="btn btn-primary btn-block" onclick="checkInExistingClient('<%= person.person_id %>')">Check-in Client </button>
               <% else %>
-              <button class="btn btn-block disabled"><span class="text-muted">Check-in Client </span></button>
+                <button class="btn btn-block disabled"><span class="text-muted">Check-in Client </span></button>
               <% end %>
-              
+
             </td>
           </tr>
         <% end %>
