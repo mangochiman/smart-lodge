@@ -15,20 +15,16 @@
     padding: 16px 3px;
     border-radius: 50%;
   }
-  .btn-circle {
-    border-radius: 15px;
-    font-size: 12px;
-    height: 30px;
-    line-height: 1.42857;
-    padding: 6px 0;
-    text-align: center;
-    width: 30px;
-  }
+
   .btn-circle {
     border-radius: 500px;
     height: 40px;
     padding: 8px 10px;
-    width: 124px !important;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.42857;
+    vertical-align:middle;
+    width:200px !important;
   }
   .btn-lg {
     border-radius: 6px;
@@ -58,16 +54,22 @@
     vertical-align: middle;
     white-space: nowrap;
   }
+
+  pre{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
 </style>
 <!-- BEGIN # MODAL LOGIN -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" align="center">
-        <a class="btn btn-primary btn-lg btn-circle" href="#">Smart Lodge</a>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>-->
+        <pre><%= lodge_name %></pre>
       </div>
 
       <!-- Begin # DIV Form -->

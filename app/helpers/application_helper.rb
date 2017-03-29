@@ -34,8 +34,27 @@ module ApplicationHelper
   end
 
   def settings
-    settings = YAML.load(File.read(Rails.root.to_s + "/config/settings.yml"))
+    settings = YAML.load(File.read(Rails.root.to_s + "/config/settings.yml"))["site"]
     return settings
+  end
+
+  def lodge_name
+    settings["name"]
+  end
+
+  def lodge_address
+    settings["address"]
+  end
+
+  def lodge_phone
+    settings["phone"]
+  end
+
+  def admin?
+    user = User.find(session[:user].user_id)
+    user_roles = user.user_roles.collect{|r|r.role}
+    return true if user_roles.include?('admin')
+    return false
   end
   
 end

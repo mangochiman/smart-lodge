@@ -1,11 +1,11 @@
 
 def default_data
   create_user()
-  create_people()
-  create_room_types()
-  create_rooms()
-  create_bookings()
-  create_room_rates()
+  #create_people()
+  #create_room_types()
+  #create_rooms()
+  #create_bookings()
+  #create_room_rates()
 end
 
 def create_user
@@ -19,6 +19,12 @@ def create_user
   user.password = User.encrypt('mangochiman', salt)
   user.salt = salt
   user.save
+
+  user_role = UserRole.new
+  user_role.username = User.first.username
+  user_role.role = 'admin'
+  user_role.sort_weight = 1
+  user_role.save
 end
 
 def create_people
