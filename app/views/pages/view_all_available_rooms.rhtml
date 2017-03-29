@@ -1,0 +1,31 @@
+
+<div id="occupiedTable" class="body collapse in">
+  <table class="table table-bordered sortableTable responsive-table">
+    <thead>
+      <tr>
+        <th>Room Number</th>
+        <th>Room Type</th>
+        <th>Room Name</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @available_rooms.each do |room| %>
+        <tr>
+          <td><%= room.number %></td>
+          <td><%= room.room_type.room_type %></td>
+          <td><%= room.name %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+
+  window.setTimeout(function(){
+    jQuery('.dashboard').addClass('active');
+  }, 150);
+  
+</script>

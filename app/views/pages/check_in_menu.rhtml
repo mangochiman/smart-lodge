@@ -43,10 +43,19 @@
       </table>
     </div>
   </form>
+
+    <p class="stackControls" style="padding-left: 10px;">
+      <b>Available rooms</b>:
+      <% @rooms.each do |room| %>
+        <button class="btn btn-primary" style="margin-bottom: 5px;"><%= room.name %></button>
+      <% end %>
+    </p>
+
   <hr/>
 </div>
 
 <div class="panel-body">
+  
   <form class="form-horizontal" action="/pages/create_bookings" id="bookings" method="POST">
 
     <div class="form-group">
@@ -146,7 +155,7 @@
         <button type="submit" class="btn btn-success">Confirm Checkin</button>
       </div>
     </div>
-    
+
   </form>
 </div>
 

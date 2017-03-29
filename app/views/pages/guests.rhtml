@@ -21,15 +21,23 @@
             </tr>
           </thead>
           <tbody>
+            <% count = 0 %>
             <% @available_rooms.each do |room| %>
               <tr>
                 <td><%= room.number %></td>
                 <td><%= room.room_type.room_type %></td>
                 <td><%= room.name %></td>
               </tr>
+              <% count = count + 1
+              break if count == 10
+            %>
             <% end %>
           </tbody>
         </table>
+
+        <div>
+          <a href="/view_all_available_rooms" class="btn btn-default btn-block btn-primary">View All Available Rooms</a>
+        </div>
       </div>
     </div>
     <div class="panel panel-primary">
@@ -105,17 +113,23 @@
             </tr>
           </thead>
           <tbody>
-
+            <% count = 0 %>
             <% @occupied_rooms.each do |room| %>
               <tr>
                 <td><%= room.number %></td>
                 <td><%= room.room_type.room_type %></td>
                 <td><%= room.name %></td>
               </tr>
+              <% count = count + 1
+              break if count == 10 %>
             <% end %>
 
           </tbody>
         </table>
+
+        <div>
+          <a href="/view_all_occupied_rooms" class="btn btn-default btn-block btn-primary">View All Occupied Rooms</a>
+        </div>
       </div>
     </div>
 

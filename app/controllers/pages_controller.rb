@@ -52,6 +52,7 @@ class PagesController < ApplicationController
   def check_out_menu
     @page_title = "Check Out"
     @active_check_ins = Booking.active_check_ins
+    @occupied_rooms = Room.occupied_rooms
   end
 
   def check_out_client
@@ -469,5 +470,15 @@ class PagesController < ApplicationController
     @page_title = "My Profile"
     @user = User.find(session[:user].user_id)
   end
-  
+
+  def view_all_available_rooms
+    @page_title = "View available rooms"
+    @available_rooms = Room.available_rooms
+  end
+
+  def view_all_occupied_rooms
+    @page_title = "View occupied rooms"
+    @occupied_rooms = Room.occupied_rooms
+  end
+
 end

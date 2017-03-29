@@ -1,5 +1,12 @@
 
 <div class="panel-body">
+  <p class="stackControls" style="padding-left: 10px;">
+    <b>Occupied rooms</b>:
+    <% @occupied_rooms.each do |room| %>
+      <button class="btn btn-primary" style="margin-bottom: 5px;"><%= room.name %></button>
+    <% end %>
+  </p>
+
   <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover" id="datatable-checkout">
       <thead>
@@ -15,10 +22,10 @@
       </thead>
       <tbody>
         <% @active_check_ins.each do |person, booking_details| %>
-        <%
+          <%
           room_name = Booking.room(booking_details.booking_id).name rescue ''
           check_in_date = Booking.check_in_date(booking_details.booking_id).to_date.strftime("%d-%b-%Y") rescue ''
-      %>
+        %>
           <tr class="odd gradeX">
             <td><%= person.first_name %></td>
             <td><%= person.last_name %></td>
