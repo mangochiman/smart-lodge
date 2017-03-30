@@ -5,7 +5,7 @@
         <h5>Available Rooms <a href="#" class="btn btn-default btn-circle"><b><%= @available_rooms.count %></b></a></h5>
         <div class="toolbar">
           <div class="btn-group">
-            <a href="#sortableTable" data-toggle="collapse" class="btn btn-default btn-sm accordion-toggle minimize-box">
+            <a href="#sortableTable" data-toggle="collapse" class="btn btn-default btn-sm accordion-toggle minimize-box available-rooms">
               <i class="icon-chevron-up"></i>
             </a>
           </div>
@@ -80,6 +80,7 @@
               </div>
 
             </div>
+            <% break if count == 10 %>
           <% end %>
           <div  style="padding-top: 20px;">
             <a href="/view_all_check_ins_menu" class="btn btn-default btn-block btn-primary">View All Check-Ins</a>
@@ -97,7 +98,7 @@
         <h5>Occupied Rooms <a href="#" class="btn btn-default btn-circle"><b><%= @occupied_rooms.count %></b></a></h5>
         <div class="toolbar">
           <div class="btn-group">
-            <a href="#occupiedTable" data-toggle="collapse" class="btn btn-default btn-sm accordion-toggle minimize-box">
+            <a href="#occupiedTable" data-toggle="collapse" class="btn btn-default btn-sm accordion-toggle minimize-box occupied-rooms">
               <i class="icon-chevron-up"></i>
             </a>
           </div>
@@ -174,6 +175,7 @@
               </div>
 
             </div>
+            <% break if count == 10 %>
           <% end %>
 
           <div  style="padding-top: 20px;">
@@ -231,6 +233,15 @@
 
   window.setTimeout(function(){
     jQuery('.dashboard').addClass('active');
+    
+    jQuery(".available-rooms").click(function(){
+        jQuery(".available-rooms > i").toggleClass("icon-chevron-down");
+    });
+
+    jQuery(".occupied-rooms").click(function(){
+        jQuery(".occupied-rooms > i").toggleClass("icon-chevron-down");
+    });
+    
   }, 150);
 
   function viewInvoice(bookingID){
