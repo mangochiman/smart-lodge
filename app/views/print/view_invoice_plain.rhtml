@@ -13,23 +13,20 @@
     <!-- info row -->
     <div class="row invoice-info">
 
-      <table>
+      <table style="width: 100%;">
         <tr>
           <td style="width: 42%;">
             <div style="padding-left: 17px;">
               From
               <address>
                 <strong>
-                  Smart Lodge Client<br />
-                  Box 7876,
-                  Mzuzu<br />
-
-                  Phone #: 0999607901
+                  <%= lodge_address %><br />
+                  Phone : <%= lodge_phone %>
                 </strong>
               </address>
             </div>
           </td>
-          <td style="width: 36%;">
+          <td style="width: 36%;" class="pull-right">
             <div>
               To
               <address>
@@ -42,7 +39,7 @@
               </address>
             </div>
           </td>
-          <td>
+          <!--<td>
             <div>
               Bank Details
               <address>
@@ -51,7 +48,7 @@
                 <b>Account:</b> 968-34567
               </address>
             </div>
-          </td>
+          </td>-->
         </tr>
       </table>
     </div><!-- /.row -->

@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def lodge_address
-    settings["address"]
+    settings["address"].gsub('|', '<br />')
   end
 
   def lodge_phone

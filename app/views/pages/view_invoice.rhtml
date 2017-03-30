@@ -16,15 +16,12 @@
         From
         <address>
           <strong>
-            Smart Lodge Client<br />
-            Box 7876,
-            Mzuzu
-
-            Phone #: 0999607901
+            <%= lodge_address %><br />
+            Phone : <%= lodge_phone %>
           </strong>
         </address>
       </div><!-- /.col -->
-      <div class="col-sm-4 invoice-col">
+      <div class="col-sm-4 invoice-col pull-right">
         To
         <address>
           <strong>
@@ -35,12 +32,12 @@
           Phone: <%= @person.phone_number %><br />
         </address>
       </div><!-- /.col -->
-      <div class="col-sm-4 invoice-col">
+      <!--<div class="col-sm-4 invoice-col">
         <b>Bank Details</b><br>
         <b>National Bank</b><br>
         <b>Branch:</b> Mzuzu<br>
         <b>Account:</b> 968-34567
-      </div><!-- /.col -->
+      </div>--><!-- /.col -->
     </div><!-- /.row -->
 
     <!-- Table row -->
