@@ -21,7 +21,7 @@
             <td><%= person.last_name %></td>
             <td><%= person.gender %></td>
             <td class="center"><%= person.phone_number %></td>
-            <td class="center"><%= RoomBooking.room(booking_status.booking_id).name %></td>
+            <td class="center"><%= RoomBooking.room(booking_status.booking_id).name rescue "" %></td>
             <td class="center"><%= booking_status.status_date.to_date.strftime("%d-%b-%Y") rescue nil %></td>
             <td><%= Booking.checkout_date(booking_status.booking_id).strftime("%d-%b-%Y") rescue nil %></td>
             <td><button onclick="showCancelCheckoutConfirmation(<%= booking_status.booking_status_id %>)" class="btn btn-warning btn-block"><i class="icon-archive icon-white"></i> Cancel Check-out</button></td>

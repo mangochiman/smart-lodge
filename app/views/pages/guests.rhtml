@@ -25,7 +25,7 @@
             <% @available_rooms.each do |room| %>
               <tr>
                 <td><%= room.number %></td>
-                <td><%= room.room_type.room_type %></td>
+                <td><%= room.room_type.room_type rescue "" %></td>
                 <td><%= room.name %></td>
               </tr>
               <% count = count + 1
@@ -69,8 +69,8 @@
                 <div class="panel-body">
                   <span><b>Check In Date:</b> <%= booking.start_date.to_date.strftime("%d/%b/%Y") rescue booking.start_date %></span>, &nbsp;
                   <span><b>Expected Check Out Date:</b> <%= booking.end_date.to_date.strftime("%d/%b/%Y") rescue booking.end_date %></span><br />
-                  <span><b>Room:</b> <%= booking.room_booking.room.name %></span>, &nbsp;
-                  <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type %></span>
+                  <span><b>Room:</b> <%= booking.room_booking.room.name rescue "" %></span>, &nbsp;
+                  <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type rescue "" %></span>
                 </div>
                 <p style="padding-left: 15px;">
                   <button class="btn btn-danger" onclick="showCancelBookingConfirmation('<%= booking.booking_id %>')"><i class="icon-remove icon-white"></i> Cancel Booking</button>
@@ -118,7 +118,7 @@
             <% @occupied_rooms.each do |room| %>
               <tr>
                 <td><%= room.number %></td>
-                <td><%= room.room_type.room_type %></td>
+                <td><%= room.room_type.room_type rescue ""%></td>
                 <td><%= room.name %></td>
               </tr>
               <% count = count + 1
@@ -165,8 +165,8 @@
                   <span><b>Check In Date:</b> <%= booking.start_date.to_date.strftime("%d/%b/%Y") rescue  booking.start_date %></span>, &nbsp;
                   <span><b>Expected Check Out Date:</b> <%= booking.end_date.to_date.strftime("%d/%b/%Y") rescue  booking.end_date%></span><br />
                   <span><b>Real Check Out Date:</b> <%=  Booking.checkout_date(booking.booking_id).to_date.strftime("%d/%b/%Y") rescue nil  %></span>,&nbsp;
-                  <span><b>Room:</b> <%= booking.room_booking.room.name %></span>, &nbsp;
-                  <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type %></span>
+                  <span><b>Room:</b> <%= booking.room_booking.room.name rescue "" %></span>, &nbsp;
+                  <span><b>Room Type:</b> <%= booking.room_booking.room.room_type.room_type rescue "" %></span>
                 </div>
                 <p style="padding-left: 15px;">
                   <button class="btn btn-danger" onclick="showCancelCheckoutConfirmation(<%= booking_status.booking_status_id %>)"><i class="icon-remove icon-white"></i> Cancel Checkout</button>

@@ -92,6 +92,19 @@ class Booking < ActiveRecord::Base
     return booking_details
   end
 
+  def self.all_people_for_payments
+    all_booking_statuses = BookingStatus.find(:all, :group => "booking_id", :order => "booking_status_id DESC")
+    booking_details = []
+
+    all_booking_statuses.each do |booking_status|
+      booking = booking_status.booking
+      person = booking.person
+      booking_details << [person, booking_status]
+    end
+
+    return booking_details
+  end
+
   def self.available_unique_bookings
     available_bookings = BookingStatus.find(:all, :group => "booking_id", :conditions => ["status =?", "checkin"])
     booking_details = []

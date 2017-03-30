@@ -195,8 +195,9 @@ class PagesController < ApplicationController
   end
 
   def new_payment_menu
-    @page_title = "New payments <span class='label label-info'>Only possible for customers that are not checked out</span>"
-    @active_check_ins = Booking.active_check_ins
+    @page_title = "New payments <span class='label label-warning'>Showing latest ten checked out customers</span>"
+    #@active_check_ins = Booking.active_check_ins
+    @recent_checkouts = Booking.recent_checkouts
   end
 
   def make_payment
@@ -481,4 +482,9 @@ class PagesController < ApplicationController
     @occupied_rooms = Room.occupied_rooms
   end
 
+  def all_people_for_payments
+    @page_title = "Payments"
+    @all_people_for_payments = Booking.all_people_for_payments
+  end
+  
 end

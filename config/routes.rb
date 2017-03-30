@@ -87,6 +87,7 @@ ActionController::Routing::Routes.draw do |map|
   map.unlock_screen  '/unlock_screen',  :controller => 'pages', :action => 'unlock_screen' 
   map.view_all_available_rooms  '/view_all_available_rooms',  :controller => 'pages', :action => 'view_all_available_rooms'
   map.view_all_occupied_rooms  '/view_all_occupied_rooms',  :controller => 'pages', :action => 'view_all_occupied_rooms'
+  map.all_people_for_payments  '/all_people_for_payments',  :controller => 'pages', :action => 'all_people_for_payments'
   #########GUESTS END########################################################################
   
   # The priority is based upon order of creation: first created -> highest priority.
