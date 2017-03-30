@@ -44,18 +44,18 @@
     </div>
   </form>
 
-    <p class="stackControls" style="padding-left: 10px;">
-      <b>Available rooms</b>:
-      <% @rooms.each do |room| %>
-        <button class="btn btn-primary" style="margin-bottom: 5px;"><%= room.name %></button>
-      <% end %>
-    </p>
+  <p class="stackControls" style="padding-left: 10px;">
+    <b>Available rooms</b>:
+    <% @rooms.each do |room| %>
+      <button class="btn btn-primary" style="margin-bottom: 5px;"><%= room.name %></button>
+    <% end %>
+  </p>
 
   <hr/>
 </div>
 
 <div class="panel-body">
-  
+
   <form class="form-horizontal" action="/pages/create_bookings" id="bookings" method="POST">
 
     <div class="form-group">
@@ -126,14 +126,14 @@
 
     <div class="form-group">
       <label class="control-label col-lg-4">Room</label>
-
       <div class="col-lg-8">
-        <select class="form-control" name="room_id" required="true">
-          <% @rooms.each do |room| %>
-            <option></option>
+        <select style="min-width: 200px;" required="true" data-placeholder="Search or select room" name="room_id" class="form-control chzn-select" tabindex="7">
+          <option></option>
+          <% available_rooms.each do |room| %>
             <option value="<%= room.room_id %>"><%= room.name %> (<%= room.room_type.room_type %>)</option>
           <% end %>
         </select>
+
       </div>
     </div>
 
@@ -158,6 +158,25 @@
 
   </form>
 </div>
+
+<style type="text/css">
+  .chosen-container-single .chosen-single{
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    vertical-align: middle;
+    width: 100%;
+  }
+</style>
 
 <script type="text/javascript">
 
