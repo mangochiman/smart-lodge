@@ -112,7 +112,7 @@
           <% @room_types_without_rooms.each do |room_type| %>
             <a href="#" class="list-group-item">
               <i class="icon-warning-sign"></i> <%= room_type.room_type %>
-              <span class="pull-right text-muted small"><em> <%= room_type.created_at.to_date.strftime("%d-%b-%Y") %></em>
+              <span class="pull-right text-muted small"><em> <%= room_type.created_at.to_date.strftime("%d-%b-%Y") rescue room_type.created_at %></em>
               </span>
             </a>
           <% end %>
