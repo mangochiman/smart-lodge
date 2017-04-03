@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :lock_screen_when_activated, :except => [:login, :authenticate, :create, :reset_password]
   
   def login
+    @page_title = "Login"
     session.delete(:screen_locked) if session[:screen_locked]
     render :layout => false
   end
