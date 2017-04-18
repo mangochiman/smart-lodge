@@ -129,7 +129,7 @@
       <div class="col-lg-8">
         <select style="min-width: 200px;" required="true" data-placeholder="Search or select room" name="room_id" class="form-control chzn-select" tabindex="7">
           <option></option>
-          <% available_rooms.each do |room| %>
+          <% @rooms.each do |room| %>
             <option value="<%= room.room_id %>"><%= room.name %> (<%= room.room_type.room_type %>)</option>
           <% end %>
         </select>
